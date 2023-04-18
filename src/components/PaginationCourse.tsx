@@ -1,15 +1,11 @@
 import React from 'react'
-import {AppContext} from '@/src/context/index'
 import {Pagination} from 'react-bootstrap'
 
-type PaginationType = {
-	totalCount: number
-	pageSize: number
-}
+import {AppContext} from '@/src/context/index'
 
-const PaginationCourses = (props: PaginationType) => {
+const PaginationCourses = ({totalCount, pageSize}: {totalCount: number; pageSize: number}) => {
 	const {currentPage, setCurrentPage} = React.useContext(AppContext)
-	const pagesLength = Math.ceil(props.totalCount / props.pageSize)
+	const pagesLength = Math.ceil(totalCount / pageSize)
 
 	const onPageClick = (page: number) => {
 		const _page = pagesLength >= page ? (page > 0 ? page : 1) : pagesLength

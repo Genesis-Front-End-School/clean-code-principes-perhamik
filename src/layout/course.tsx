@@ -1,13 +1,14 @@
 import React from 'react'
 import {Container, Image, Row, Col, ListGroup} from 'react-bootstrap'
 import {useLocalStorage, useInterval, useEffectOnce} from 'usehooks-ts'
-import {getPreviewWebp, getPreviewSet, transformDuration} from '@/src/api'
-
-import {AppContext} from '@/src/context/index'
-import type {CourseSingleType, LessonType} from '@/src/types'
+import Hls from 'hls.js'
 import type {Events, ErrorData} from 'hls.js'
 
-import Hls from 'hls.js'
+import {AppContext} from '@/src/context'
+import {getPreviewWebp, getPreviewSet} from '@/src/services'
+import {transformDuration, delayedAction} from '@/src/utils'
+
+import type {CourseSingleType, LessonType} from '@/src/types'
 
 type SavedType = {
 	lesson: string
@@ -16,24 +17,15 @@ type SavedType = {
 
 const PLAYER_START_POSITION = 0.4
 
-const delay = (ms: number) =>
-	new Promise((resolve) => {
-		setTimeout(() => {
-			resolve(true)
-		}, ms)
-	})
-
-const delayedAction = (ms: number, func: Function) => delay(ms).then(() => func())
-
 export default function CourseLayout({data}: {data: CourseSingleType}) {
-	const videoRef = React.useRef<HTMLVideoElement>(null) as React.MutableRefObject<HTMLVideoElement>
+	const videoRef = React.useRef<HTMLVideoElement>(null)
 	const {hls, setHls} = React.useContext(AppContext)
 	const [currentCourseLesson, setCurrentCourseLesson] = useLocalStorage(data.id, '')
 	const [offsetTime, setOffsetTime] = React.useState(PLAYER_START_POSITION)
 	const [activeLesson, setActiveLesson] = React.useState<LessonType>()
 
 	const setActiveLessonAndAppendVideo = (lesson: LessonType, time: number = PLAYER_START_POSITION) => {
-		let _hls = hls ? hls : new Hls({startPosition: time})
+		const _hls = hls ? hls : new Hls({startPosition: time})
 		if (!lesson || !_hls) return
 
 		if (offsetTime !== time) {
@@ -69,10 +61,10 @@ export default function CourseLayout({data}: {data: CourseSingleType}) {
 			}
 		}
 
-		_hls && _hls.off(Hls.Events.ERROR, HlsErrorHandler)
-		_hls && _hls.off(Hls.Events.MEDIA_ATTACHED, () => _hls.loadSource(lesson.link))
-		_hls && _hls.on(Hls.Events.ERROR, HlsErrorHandler)
-		_hls && _hls.on(Hls.Events.MEDIA_ATTACHED, () => _hls.loadSource(lesson.link))
+		_hls.off(Hls.Events.ERROR, HlsErrorHandler)
+		_hls.off(Hls.Events.MEDIA_ATTACHED, () => _hls.loadSource(lesson.link))
+		_hls.on(Hls.Events.ERROR, HlsErrorHandler)
+		_hls.on(Hls.Events.MEDIA_ATTACHED, () => _hls.loadSource(lesson.link))
 
 		delayedAction(500, () => _hls && _hls.attachMedia(videoRef.current))
 	}
@@ -105,7 +97,7 @@ export default function CourseLayout({data}: {data: CourseSingleType}) {
 			const videoElement = videoRef ? videoRef.current : null
 			if (!videoElement || !_id) return
 
-			// @ts-ignore -- currentTime does not exist on type HTMLVideoElement
+			//@ts-ignore
 			const _time = videoElement.currentTime ? Math.floor(videoElement.currentTime) : 0
 
 			if (_time > 2) {
@@ -139,11 +131,7 @@ export default function CourseLayout({data}: {data: CourseSingleType}) {
 			<Container>
 				<Row>
 					<Col sm={8}>
-						<video
-							ref={videoRef}
-							controls
-							style={{maxWidth: '100%', display: 'flex', width: '100%', height: '100%', outline: 'none'}}
-						/>
+						<video ref={videoRef} controls className="d-flex w-100 h-100" />
 					</Col>
 					<Col sm={4}>
 						<ListGroup>
@@ -154,13 +142,8 @@ export default function CourseLayout({data}: {data: CourseSingleType}) {
 									active={activeLesson && activeLesson.id === lesson.id}
 									action
 									onClick={() => onListItemClick(lesson)}
-									className={`d-flex justify-content-between align-items-start ${
-										lesson.available === false ? 'disabled' : ''
-									}`}>
-									<h3
-										className={`h6 ${
-											lesson.available === false ? 'text-muted' : ''
-										}`}>{`${lesson.order}. ${lesson.title}`}</h3>
+									className={`d-flex justify-content-between align-items-start ${!lesson.available ? 'disabled' : ''}`}>
+									<h3 className={`h6 ${!lesson.available ? 'text-muted' : ''}`}>{`${lesson.order}. ${lesson.title}`}</h3>
 									<span>{transformDuration(lesson.duration)}</span>
 								</ListGroup.Item>
 							))}

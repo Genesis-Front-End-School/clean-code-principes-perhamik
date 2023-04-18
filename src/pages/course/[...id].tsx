@@ -1,8 +1,9 @@
 import React from 'react'
+import type {GetServerSideProps, GetServerSidePropsContext} from 'next'
 import Head from 'next/head'
+
 import Layout, {CourseLayout} from '@/src/layout'
-import {GetServerSideProps, GetServerSidePropsContext} from 'next'
-import {getCourseInfo, checkLessonsAccess} from '@/src/api'
+import {getCourseInfo, checkLessonsAccess} from '@/src/services'
 
 import type {CourseSingleType} from '@/src/types'
 

@@ -1,4 +1,5 @@
 import React from 'react'
+
 import {ContextProvider} from '@/src/context'
 import Header from '@/src/components/Header'
 
@@ -7,11 +8,11 @@ import CoursesListLayout from './list'
 
 export {CourseLayout, CoursesListLayout}
 
-const ContextLayout = ({children}: {children: any}) => {
+const ContextLayout = ({children}: {children: React.ReactNode}) => {
 	return <ContextProvider>{children}</ContextProvider>
 }
 
-export default function Layout({children}: {children: any}) {
+export default function Layout({children}: {children: React.ReactNode}) {
 	return (
 		<ContextLayout>
 			<Header />
