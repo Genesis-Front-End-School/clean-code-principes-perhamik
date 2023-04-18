@@ -7,7 +7,7 @@ import CourseCard from '@/src/components/CourseCard'
 
 import type {CourseType} from '@/src/types'
 
-const PAGE_SIZE = 10
+const PAGE_SIZE = 9
 
 export default function CoursesListLayout({data}: {data: Array<CourseType>}) {
 	const {currentPage} = React.useContext(AppContext)

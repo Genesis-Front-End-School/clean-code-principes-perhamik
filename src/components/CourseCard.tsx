@@ -15,6 +15,7 @@ export default function CourseCard({data}: {data: CourseType}) {
 				src={getPreviewWebp(previewImageLink)}
 				style={{minHeight: '164px', objectFit: 'cover'}}
 			/>
+
 			<Card.Body className="d-grid justify-items-start gap-2">
 				<Row className="mx-auto w-100 justify-content-between align-items-center">
 					<Col className="p-0">
@@ -28,8 +29,10 @@ export default function CourseCard({data}: {data: CourseType}) {
 						<RatingStars rating={data.rating} />
 					</Col>
 				</Row>
+
 				<Card.Title>{title}</Card.Title>
 				<Card.Text>{description}</Card.Text>
+
 				<Button variant="outline-primary" href={`/course/${id}`} className="w-50 align-self-end mx-auto">
 					Watch
 				</Button>

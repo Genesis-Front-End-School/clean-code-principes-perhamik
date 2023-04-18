@@ -8,17 +8,13 @@ import {AppContext} from '@/src/context'
 import {getPreviewWebp, getPreviewSet} from '@/src/services'
 import {transformDuration, delayedAction} from '@/src/utils'
 
-import type {CourseSingleType, LessonType} from '@/src/types'
-
-type SavedType = {
-	lesson: string
-	offsetTime: string
-}
+import CourseVideo from '@/src/components/CourseVideo'
+import type {CourseSingleType, LessonType, SavedCourseInfoType, IVideoElement} from '@/src/types'
 
 const PLAYER_START_POSITION = 0.4
 
 export default function CourseLayout({data}: {data: CourseSingleType}) {
-	const videoRef = React.useRef<HTMLVideoElement>(null)
+	const videoRef = React.useRef<IVideoElement>(null)
 	const {hls, setHls} = React.useContext(AppContext)
 	const [currentCourseLesson, setCurrentCourseLesson] = useLocalStorage(data.id, '')
 	const [offsetTime, setOffsetTime] = React.useState(PLAYER_START_POSITION)
@@ -69,17 +65,13 @@ export default function CourseLayout({data}: {data: CourseSingleType}) {
 		delayedAction(500, () => _hls && _hls.attachMedia(videoRef.current))
 	}
 
-	const onListItemClick = (lesson: LessonType) => {
-		setActiveLessonAndAppendVideo(lesson)
-	}
-
 	useEffectOnce(() => {
 		setHls(() => new Hls({startPosition: offsetTime}))
 
 		const haveWatchedThisCourse = () => {
 			if (!currentCourseLesson) return
 
-			const parsedCourse = JSON.parse(currentCourseLesson) as SavedType
+			const parsedCourse = JSON.parse(currentCourseLesson) as SavedCourseInfoType
 			const time = !isNaN(parseInt(parsedCourse.offsetTime)) ? parseInt(parsedCourse.offsetTime) : PLAYER_START_POSITION
 			const lesson = data.lessons.find((item) => item.id === parsedCourse.lesson)
 
@@ -97,7 +89,6 @@ export default function CourseLayout({data}: {data: CourseSingleType}) {
 			const videoElement = videoRef ? videoRef.current : null
 			if (!videoElement || !_id) return
 
-			//@ts-ignore
 			const _time = videoElement.currentTime ? Math.floor(videoElement.currentTime) : 0
 
 			if (_time > 2) {
@@ -128,10 +119,11 @@ export default function CourseLayout({data}: {data: CourseSingleType}) {
 					</Row>
 				</Container>
 			</section>
+
 			<Container>
 				<Row>
 					<Col sm={8}>
-						<video ref={videoRef} controls className="d-flex w-100 h-100" />
+						<CourseVideo ref={videoRef} />
 					</Col>
 					<Col sm={4}>
 						<ListGroup>
@@ -141,7 +133,7 @@ export default function CourseLayout({data}: {data: CourseSingleType}) {
 									as="button"
 									active={activeLesson && activeLesson.id === lesson.id}
 									action
-									onClick={() => onListItemClick(lesson)}
+									onClick={() => setActiveLessonAndAppendVideo(lesson)}
 									className={`d-flex justify-content-between align-items-start ${!lesson.available ? 'disabled' : ''}`}>
 									<h3 className={`h6 ${!lesson.available ? 'text-muted' : ''}`}>{`${lesson.order}. ${lesson.title}`}</h3>
 									<span>{transformDuration(lesson.duration)}</span>
