@@ -1,6 +1,6 @@
-import React from 'react'
 import type {GetServerSideProps} from 'next'
 import Head from 'next/head'
+import React from 'react'
 
 import Layout, {CoursesListLayout} from '@/src/layout'
 import {getCoursesList} from '@/src/services'

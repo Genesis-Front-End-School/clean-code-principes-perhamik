@@ -1,5 +1,5 @@
-import React from 'react'
 import type Hls from 'hls.js'
+import React from 'react'
 
 type ContextType = {
 	hls: Hls | null

@@ -24,7 +24,8 @@ const PaginationCourses = ({totalCount, pageSize}: {totalCount: number; pageSize
 						<Pagination.Item
 							active={id + 1 === currentPage}
 							key={`pagination_item_${id}`}
-							onClick={() => onPageNumberClick(id + 1)}>
+							onClick={() => onPageNumberClick(id + 1)}
+						>
 							{id + 1}
 						</Pagination.Item>
 					)

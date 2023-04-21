@@ -1,6 +1,6 @@
-import React from 'react'
 import Head from 'next/head'
-import {Container, Row, Col} from 'react-bootstrap'
+import React from 'react'
+import {Col, Container, Row} from 'react-bootstrap'
 
 import Layout from '@/src/layout/index'
 

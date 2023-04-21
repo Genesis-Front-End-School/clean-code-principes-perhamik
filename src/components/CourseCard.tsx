@@ -1,8 +1,9 @@
 import React from 'react'
-import {Card, Button, Row, Col, Badge} from 'react-bootstrap'
+import {Badge, Button, Card, Col, Row} from 'react-bootstrap'
 
-import {getPreviewWebp, getPreviewSet} from '@/src/services'
+import {getPreviewSet, getPreviewWebp} from '@/src/services'
 import type {CourseType} from '@/src/types'
+
 import RatingStars from './RatingStars'
 
 export default function CourseCard({data}: {data: CourseType}) {

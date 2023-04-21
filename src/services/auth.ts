@@ -1,5 +1,4 @@
 import type {GetServerSidePropsContext} from 'next/types'
-
 import {parseCookies, setCookie} from 'nookies'
 
 export const getAuthToken = async (ctx: GetServerSidePropsContext) => {

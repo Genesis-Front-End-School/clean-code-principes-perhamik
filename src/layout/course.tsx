@@ -1,15 +1,15 @@
-import React from 'react'
-import {Container, Image, Row, Col, ListGroup} from 'react-bootstrap'
-import {useLocalStorage, useInterval, useEffectOnce} from 'usehooks-ts'
 import Hls from 'hls.js'
-import type {Events, ErrorData} from 'hls.js'
-
-import {AppContext} from '@/src/context'
-import {getPreviewWebp, getPreviewSet} from '@/src/services'
-import {transformDuration, delayedAction} from '@/src/utils'
+import type {ErrorData, Events} from 'hls.js'
+import React from 'react'
+import {Col, Container, Image, ListGroup, Row} from 'react-bootstrap'
+import {useEffectOnce, useInterval, useLocalStorage} from 'usehooks-ts'
 
 import CourseVideo from '@/src/components/CourseVideo'
-import type {CourseSingleType, LessonType, SavedCourseInfoType, IVideoElement} from '@/src/types'
+
+import {AppContext} from '@/src/context'
+import {getPreviewSet, getPreviewWebp} from '@/src/services'
+import type {CourseSingleType, IVideoElement, LessonType, SavedCourseInfoType} from '@/src/types'
+import {delayedAction, transformDuration} from '@/src/utils'
 
 const PLAYER_START_POSITION = 0.4
 
@@ -134,7 +134,8 @@ export default function CourseLayout({data}: {data: CourseSingleType}) {
 									active={activeLesson && activeLesson.id === lesson.id}
 									action
 									onClick={() => setActiveLessonAndAppendVideo(lesson)}
-									className={`d-flex justify-content-between align-items-start ${!lesson.available ? 'disabled' : ''}`}>
+									className={`d-flex justify-content-between align-items-start ${!lesson.available ? 'disabled' : ''}`}
+								>
 									<h3 className={`h6 ${!lesson.available ? 'text-muted' : ''}`}>{`${lesson.order}. ${lesson.title}`}</h3>
 									<span>{transformDuration(lesson.duration)}</span>
 								</ListGroup.Item>

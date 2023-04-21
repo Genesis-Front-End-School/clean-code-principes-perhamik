@@ -1,7 +1,8 @@
 import type {GetServerSidePropsContext} from 'next/types'
 
-import {requestToken} from './auth'
 import type {CourseType} from '@/src/types'
+
+import {requestToken} from './auth'
 
 export const requestCoursesList = (token: string) => {
 	return fetch(`${process.env.API_URL}/${process.env.API_VERSION}/core/preview-courses`, {

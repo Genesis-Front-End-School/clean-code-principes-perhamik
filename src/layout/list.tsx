@@ -1,10 +1,10 @@
 import React from 'react'
-import {Container, Row, Col} from 'react-bootstrap'
+import {Col, Container, Row} from 'react-bootstrap'
+
+import CourseCard from '@/src/components/CourseCard'
+import PaginationCourses from '@/src/components/PaginationCourse'
 
 import {AppContext} from '@/src/context'
-import PaginationCourses from '@/src/components/PaginationCourse'
-import CourseCard from '@/src/components/CourseCard'
-
 import type {CourseType} from '@/src/types'
 
 const PAGE_SIZE = 9
