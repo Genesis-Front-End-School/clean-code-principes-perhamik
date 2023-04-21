@@ -85,14 +85,14 @@ export default function CourseLayout({data}: {data: CourseSingleType}) {
 
 	useInterval(() => {
 		const saveCurrentProgress = () => {
-			const _id = activeLesson ? activeLesson.id : ''
-			const videoElement = videoRef ? videoRef.current : null
-			if (!videoElement || !_id) return
+			const id = activeLesson?.id || ''
+			const videoElement = videoRef?.current
+			if (!videoElement || !id) return
 
-			const _time = videoElement.currentTime ? Math.floor(videoElement.currentTime) : 0
+			const time = videoElement.currentTime ? Math.floor(videoElement.currentTime) : 0
 
-			if (_time > 2) {
-				setCurrentCourseLesson(() => JSON.stringify({lesson: _id, offsetTime: _time}))
+			if (time > 2) {
+				setCurrentCourseLesson(() => JSON.stringify({lesson: id, offsetTime: time}))
 			}
 		}
 
@@ -131,7 +131,7 @@ export default function CourseLayout({data}: {data: CourseSingleType}) {
 								<ListGroup.Item
 									key={lesson.id}
 									as="button"
-									active={activeLesson && activeLesson.id === lesson.id}
+									active={activeLesson?.id === lesson.id}
 									action
 									onClick={() => setActiveLessonAndAppendVideo(lesson)}
 									className={`d-flex justify-content-between align-items-start ${!lesson.available ? 'disabled' : ''}`}
