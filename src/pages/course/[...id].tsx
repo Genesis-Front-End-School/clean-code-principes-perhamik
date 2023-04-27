@@ -1,24 +1,48 @@
 import type {GetServerSideProps, GetServerSidePropsContext} from 'next'
 import Head from 'next/head'
+import {useRouter} from 'next/router'
 import React from 'react'
+import {Col, Container, Row} from 'react-bootstrap'
 
-import Layout, {CourseLayout} from '@/src/layout'
-import {checkLessonsAccess, getCourseInfo} from '@/src/services'
+import Header from '@/src/components/Header'
+import {CourseContextProvider, LessonVideo, LessonsList} from '@/src/components/Lesson'
+import LessonInfo from '@/src/components/Lesson/Info'
+
+import {checkLessonsAccess} from '@/src/services'
 import type {CourseSingleType} from '@/src/types'
 
-export const getServerSideProps: GetServerSideProps = async (ctx: GetServerSidePropsContext) => {
-	const {lessons, ..._data} = await getCourseInfo(ctx)
-	const data = {..._data, lessons: lessons.sort((les1, les2) => les1.order - les2.order)}
-	return {
-		props: {data},
-	}
-}
+export default function CoursePage() {
+	const router = useRouter()
+	const [isLoading, setIsLoading] = React.useState(true)
+	const [course, setCourse] = React.useState<CourseSingleType>()
 
-export default function CoursePage({data}: {data: CourseSingleType}) {
-	const [course, setCourse] = React.useState<CourseSingleType>(data)
+	const fetchCourse = async () => {
+		try {
+			const id = router.query?.id || ''
+			if (!id) return
+
+			const response = await fetch(`/api/course/${id}`)
+			const data = await response.json()
+
+			if (data.success && data.data) {
+				setCourse(() => data.data)
+			}
+		} catch (error) {
+			console.error(error)
+		} finally {
+			setIsLoading(false)
+		}
+	}
 
 	React.useEffect(() => {
-		const availables = checkLessonsAccess(data.lessons)
+		if (!isLoading) return
+		fetchCourse()
+	}, [router.query])
+
+	React.useEffect(() => {
+		if (!course) return
+
+		const availables = checkLessonsAccess(course.lessons)
 
 		availables.then((status) => {
 			const lessons = course.lessons.map((lesson, id) => {
@@ -28,17 +52,36 @@ export default function CoursePage({data}: {data: CourseSingleType}) {
 
 			setCourse({...course, lessons})
 		})
-	}, [])
+	}, [course])
+
+	if (isLoading || !course) {
+		return <Header />
+	}
 
 	return (
-		<Layout>
+		<CourseContextProvider>
 			<Head>
-				<title>{data.title ? data.title : 'Course'}</title>
-				<meta name="description" content={data.description} />
+				<title>{course.title ? course.title : 'Course'}</title>
+				<meta name="description" content={course.description} />
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
+			<Header />
+			<section className="px-4 py-5">
+				<Container className="col-xxl-8">
+					<LessonInfo data={course} />
+				</Container>
+			</section>
 
-			<CourseLayout data={course} />
-		</Layout>
+			<Container>
+				<Row>
+					<Col sm={8}>
+						<LessonVideo />
+					</Col>
+					<Col sm={4}>
+						<LessonsList />
+					</Col>
+				</Row>
+			</Container>
+		</CourseContextProvider>
 	)
 }

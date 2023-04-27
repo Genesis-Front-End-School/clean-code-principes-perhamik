@@ -2,11 +2,9 @@ import Head from 'next/head'
 import React from 'react'
 import {Col, Container, Row} from 'react-bootstrap'
 
-import Layout from '@/src/layout/index'
-
 export default function FourOhFour() {
 	return (
-		<Layout>
+		<>
 			<Head>
 				<title>404 - Not Found</title>
 				<meta name="description" content="Not found" />
@@ -19,6 +17,6 @@ export default function FourOhFour() {
 					</Col>
 				</Row>
 			</Container>
-		</Layout>
+		</>
 	)
 }

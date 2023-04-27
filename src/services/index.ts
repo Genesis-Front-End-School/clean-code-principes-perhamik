@@ -1,4 +1,5 @@
-export {getAuthToken, requestToken} from './auth'
-export {requestCoursesList, getCoursesList} from './courses'
-export {requestCourseInfo, getCourseInfo, checkLessonsAccess} from './lessons'
-export {getPreviewWebp, getPreviewSet, getLessonPreviewWebp, getLessonPreviewSet} from './previews'
+import * as Store from './store'
+
+export {API_PATH, API_AUTH_PATH, API_GET_COURSES} from './const'
+export {Store}
+export {fetchAuth, fetchCourses, checkLessonsAccess} from './api'
