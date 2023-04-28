@@ -38,7 +38,7 @@ export const appendHlsErrorHandler = (hls: Hls, lesson: LessonType) => {
 }
 
 export const haveWatchedThisCourse = (currentCourseLesson: string, list: Array<LessonType>) => {
-	if (!currentCourseLesson) return
+	if (!currentCourseLesson) return {lesson: null, time: PLAYER_START_POSITION}
 
 	const parsedCourse = JSON.parse(currentCourseLesson) as SavedCourseInfoType
 	const time = !isNaN(parseInt(parsedCourse.offsetTime)) ? parseInt(parsedCourse.offsetTime) : PLAYER_START_POSITION

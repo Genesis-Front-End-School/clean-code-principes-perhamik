@@ -43,7 +43,6 @@ class NookiesStorageProvider implements IStorageProvider {
 	public set(name: string, value: string): void {
 		setCookie(null, name, value, {
 			path: '/',
-			httpOnly: true,
 			secure: true,
 		})
 	}
@@ -68,7 +67,6 @@ class CookiesStorageProvider implements IStorageProvider {
 	public set(name: string, value: string): void {
 		this.cookies.set(name, value, {
 			path: '/',
-			httpOnly: true,
 			secure: true,
 		})
 	}
@@ -83,7 +81,7 @@ class Storage {
 	private provider: IStorageProvider
 
 	private constructor() {
-		this.provider = new CookiesStorageProvider()
+		this.provider = new NookiesStorageProvider()
 	}
 
 	public static getInstance(): Storage {

@@ -1,6 +1,6 @@
 import Hls from 'hls.js'
 import React from 'react'
-import {useEffectOnce, useEventListener, useInterval, useLocalStorage} from 'usehooks-ts'
+import {useEventListener, useInterval, useLocalStorage} from 'usehooks-ts'
 
 import {CourseContext} from '@/src/components/Lesson/context'
 import {appendHlsErrorHandler, haveWatchedThisCourse} from '@/src/components/Lesson/utils'
@@ -10,8 +10,8 @@ import {LessonType} from '@/src/types'
 import {delayedAction} from '@/src/utils'
 
 export function LessonVideo() {
-	const {videoRef, offsetTime, setOffsetTime, activeLesson, setActiveLesson, lessonsList} = React.useContext(CourseContext)
-	const [currentCourseLesson, setCurrentCourseLesson] = useLocalStorage(activeLesson.id, '')
+	const {videoRef, offsetTime, setOffsetTime, activeLesson, setActiveLesson, currentCourse} = React.useContext(CourseContext)
+	const [currentCourseLesson, setCurrentCourseLesson] = useLocalStorage(currentCourse?.id, '')
 
 	const setActiveLessonAndAppendVideo = (lesson: LessonType, time: number = PLAYER_START_POSITION) => {
 		const hls = new Hls({startPosition: time})
@@ -28,18 +28,28 @@ export function LessonVideo() {
 		delayedAction(500, () => hls && hls.attachMedia(videoRef.current))
 	}
 
-	useEventListener('change', (e: CustomEvent) => {
-		const lesson = e.detail.lesson
-		lesson && setActiveLessonAndAppendVideo(lesson)
-	})
+	useEventListener(
+		'change',
+		(e: CustomEvent) => {
+			const lesson = e.detail.lesson
 
-	useEffectOnce(() => {
-		const {lesson, time} = haveWatchedThisCourse(currentCourseLesson, lessonsList)
+			lesson && setActiveLessonAndAppendVideo(lesson)
+		},
+		videoRef,
+	)
 
-		if (lesson) {
-			setActiveLessonAndAppendVideo(lesson, time)
-		}
-	})
+	useEventListener(
+		'input',
+		(e: CustomEvent) => {
+			if (!e.detail || !e.detail.lessonsList || !currentCourseLesson) return
+			const lessonsList = e.detail.lessonsList
+
+			const {lesson, time} = haveWatchedThisCourse(currentCourseLesson, lessonsList)
+
+			lesson && setActiveLessonAndAppendVideo(lesson, time)
+		},
+		videoRef,
+	)
 
 	useInterval(() => {
 		const saveCurrentProgress = () => {

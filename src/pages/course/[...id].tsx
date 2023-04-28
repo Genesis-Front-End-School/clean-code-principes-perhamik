@@ -1,74 +1,69 @@
-import type {GetServerSideProps, GetServerSidePropsContext} from 'next'
 import Head from 'next/head'
 import {useRouter} from 'next/router'
 import React from 'react'
 import {Col, Container, Row} from 'react-bootstrap'
 
 import Header from '@/src/components/Header'
-import {CourseContextProvider, LessonVideo, LessonsList} from '@/src/components/Lesson'
+import Lesson, {CourseContext, LessonVideo, LessonsList} from '@/src/components/Lesson'
 import LessonInfo from '@/src/components/Lesson/Info'
 
 import {checkLessonsAccess} from '@/src/services'
-import type {CourseSingleType} from '@/src/types'
+import API from '@/src/services/api'
 
 export default function CoursePage() {
+	return (
+		<Lesson>
+			<CoursePageLayout />
+		</Lesson>
+	)
+}
+
+function CoursePageLayout() {
 	const router = useRouter()
 	const [isLoading, setIsLoading] = React.useState(true)
-	const [course, setCourse] = React.useState<CourseSingleType>()
+	const {currentCourse, setCurrentCourse} = React.useContext(CourseContext)
 
-	const fetchCourse = async () => {
-		try {
-			const id = router.query?.id || ''
-			if (!id) return
-
-			const response = await fetch(`/api/course/${id}`)
-			const data = await response.json()
-
-			if (data.success && data.data) {
-				setCourse(() => data.data)
+	React.useEffect(() => {
+		const fetchCurrentCourse = async (id: string) => {
+			try {
+				const data = await API.getSingleCourse(id)
+				const availables = await checkLessonsAccess(data.lessons)
+				setCurrentCourse(() => {
+					return {
+						...data,
+						lessons: data.lessons.map((lesson, id) => {
+							lesson.available = availables.at(id) === 200
+							return lesson
+						}),
+					}
+				})
+			} catch (error) {
+				console.error(error)
 			}
-		} catch (error) {
-			console.error(error)
-		} finally {
+
 			setIsLoading(false)
 		}
-	}
 
-	React.useEffect(() => {
-		if (!isLoading) return
-		fetchCourse()
+		const id = router.query && router.query.id ? `${router.query.id}` : ''
+		if (!isLoading || !id) return
+		fetchCurrentCourse(id)
 	}, [router.query])
 
-	React.useEffect(() => {
-		if (!course) return
-
-		const availables = checkLessonsAccess(course.lessons)
-
-		availables.then((status) => {
-			const lessons = course.lessons.map((lesson, id) => {
-				lesson.available = status.at(id) === 200
-				return lesson
-			})
-
-			setCourse({...course, lessons})
-		})
-	}, [course])
-
-	if (isLoading || !course) {
+	if (!currentCourse) {
 		return <Header />
 	}
 
 	return (
-		<CourseContextProvider>
+		<>
 			<Head>
-				<title>{course.title ? course.title : 'Course'}</title>
-				<meta name="description" content={course.description} />
+				<title>{currentCourse.title ? currentCourse.title : 'Course'}</title>
+				<meta name="description" content={currentCourse.description} />
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 			<Header />
 			<section className="px-4 py-5">
 				<Container className="col-xxl-8">
-					<LessonInfo data={course} />
+					<LessonInfo data={currentCourse} />
 				</Container>
 			</section>
 
@@ -82,6 +77,6 @@ export default function CoursePage() {
 					</Col>
 				</Row>
 			</Container>
-		</CourseContextProvider>
+		</>
 	)
 }
