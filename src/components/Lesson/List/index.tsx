@@ -6,7 +6,7 @@ import {transformDuration} from '@/src/utils'
 
 import {CourseContext} from '../context'
 
-export function LessonsList() {
+export const LessonsList = () => {
 	const {videoRef, activeLesson, lessonsList, setLessonsList, currentCourse} = React.useContext(CourseContext)
 
 	const getVideoElement = () => {
@@ -15,6 +15,8 @@ export function LessonsList() {
 
 	const onLessonClick = (lesson: LessonType) => {
 		const video = getVideoElement()
+
+		if (!video) return
 
 		const event = new CustomEvent('change', {
 			detail: {
@@ -26,11 +28,12 @@ export function LessonsList() {
 
 	React.useEffect(() => {
 		if (!currentCourse) return
+		const video = getVideoElement()
 
 		setLessonsList(() => currentCourse.lessons)
 
+		if (!video) return
 		if (!currentCourse.lessons) return
-		const video = getVideoElement()
 
 		const event = new CustomEvent('input', {
 			detail: {

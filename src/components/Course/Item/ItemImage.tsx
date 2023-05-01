@@ -1,14 +1,6 @@
-import {Card} from 'react-bootstrap'
+import {getPreviewWebp} from '@/src/services/previews'
+import {Card} from '@/src/ui'
 
-import {getPreviewSet, getPreviewWebp} from '@/src/services/previews'
-
-export default function ItemImage({url}: {url: string}) {
-	return (
-		<Card.Img
-			variant="top"
-			srcSet={getPreviewSet(url)}
-			src={getPreviewWebp(url)}
-			style={{minHeight: '164px', objectFit: 'cover'}}
-		/>
-	)
+export const ItemImage = ({url}: {url: string}) => {
+	return <Card.Img variant="top" src={getPreviewWebp(url)} style={{minHeight: '164px', objectFit: 'cover'}} />
 }

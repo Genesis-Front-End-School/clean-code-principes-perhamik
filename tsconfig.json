@@ -1,29 +1,64 @@
 {
 	"compilerOptions": {
-		"target": "ESNext",
-		"module": "ESNext",
-		"moduleResolution": "Node",
-		"lib": ["ESNext", "DOM"],
-		"allowJs": false, // allow importing `.js` from `.ts`
-		"skipLibCheck": true,
-		"strict": false,
-		"forceConsistentCasingInFileNames": true,
-		"noEmit": true,
-		"esModuleInterop": true, // allow default imports for CommonJS modules
-		"resolveJsonModule": true,
-		"isolatedModules": true,
+		/* Basic */
+		"target": "es5",
+		"module": "esnext",
+		"lib": ["dom", "dom.iterable", "esnext"],
+		"allowJs": true,
+		"checkJs": true,
 		"jsx": "preserve",
-		"incremental": true,
+		"declaration": true,
+		"sourceMap": true,
+		"removeComments": true,
+		"noEmit": true,
+		"importHelpers": true,
+		"downlevelIteration": true,
+		"isolatedModules": true,
+
+		/* Strict */
+		"strict": true,
+		"noImplicitAny": true,
+		"strictNullChecks": true,
+		"noImplicitThis": true,
+		"alwaysStrict": true,
+
+		/* Additional Check */
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"noImplicitReturns": true,
+		"noFallthroughCasesInSwitch": true,
+
+		/* Module Resolution */
+		"moduleResolution": "node",
 		"baseUrl": "./",
 		"paths": {
 			"@/*": ["./*"]
 		},
+		"rootDirs": [],
+		"typeRoots": [],
+		"types": [],
+		"allowSyntheticDefaultImports": true,
+
+		/* Source Map Options */
+		/*"sourceRoot": "./",*/
+		/*"mapRoot": "./",*/
+		/*"inlineSourceMap": true,*/
+		/*"inlineSources": true,*/
+
+		/* Misc */
+
+		"skipLibCheck": true,
+		"forceConsistentCasingInFileNames": true,
+		"esModuleInterop": true,
+		"resolveJsonModule": true,
+		"incremental": true,
+
 		"plugins": [
 			{
 				"name": "next"
 			}
 		]
 	},
-	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+	"include": ["next-env.d.ts", "global.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
 	"exclude": ["node_modules"]
 }

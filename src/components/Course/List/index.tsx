@@ -1,10 +1,9 @@
-import {Row} from 'react-bootstrap'
-
 import {Item} from '@/src/components/Course'
 
 import {CourseType} from '@/src/types'
+import {Row} from '@/src/ui'
 
-export function List({courses}: {courses: Array<CourseType>}) {
+export const List = ({courses}: {courses: Array<CourseType>}) => {
 	if (!courses) return null
 
 	return (
@@ -15,5 +14,3 @@ export function List({courses}: {courses: Array<CourseType>}) {
 		</Row>
 	)
 }
-
-export default List

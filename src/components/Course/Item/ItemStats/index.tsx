@@ -1,10 +1,9 @@
-import {Badge, Col, Row} from 'react-bootstrap'
-
 import type {CourseType} from '@/src/types'
+import {Badge, Col, Row} from '@/src/ui'
 
-import Rating from './Rating'
+import {Rating} from './Rating'
 
-export default function ItemStats({tags, rating}: {tags: CourseType['tags']; rating: CourseType['rating']}) {
+export const ItemStats = ({tags, rating}: {tags: CourseType['tags']; rating: CourseType['rating']}) => {
 	return (
 		<Row className="mx-auto w-100 justify-content-between align-items-center">
 			<Col className="p-0">

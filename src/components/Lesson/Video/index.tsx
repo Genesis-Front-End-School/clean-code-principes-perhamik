@@ -9,9 +9,9 @@ import {PLAYER_START_POSITION} from '@/src/services/const'
 import {LessonType} from '@/src/types'
 import {delayedAction} from '@/src/utils'
 
-export function LessonVideo() {
+export const LessonVideo = () => {
 	const {videoRef, offsetTime, setOffsetTime, activeLesson, setActiveLesson, currentCourse} = React.useContext(CourseContext)
-	const [currentCourseLesson, setCurrentCourseLesson] = useLocalStorage(currentCourse?.id, '')
+	const [currentCourseLesson, setCurrentCourseLesson] = useLocalStorage(currentCourse?.id || '', '')
 
 	const setActiveLessonAndAppendVideo = (lesson: LessonType, time: number = PLAYER_START_POSITION) => {
 		const hls = new Hls({startPosition: time})
@@ -25,29 +25,29 @@ export function LessonVideo() {
 
 		appendHlsErrorHandler(hls, lesson)
 
-		delayedAction(500, () => hls && hls.attachMedia(videoRef.current))
+		delayedAction(500, () => videoRef.current && hls && hls.attachMedia(videoRef.current))
 	}
 
 	useEventListener(
 		'change',
-		(e: CustomEvent) => {
+		((e: CustomEvent) => {
 			const lesson = e.detail.lesson
 
 			lesson && setActiveLessonAndAppendVideo(lesson)
-		},
+		}) as EventListener,
 		videoRef,
 	)
 
 	useEventListener(
 		'input',
-		(e: CustomEvent) => {
+		((e: CustomEvent) => {
 			if (!e.detail || !e.detail.lessonsList || !currentCourseLesson) return
 			const lessonsList = e.detail.lessonsList
 
 			const {lesson, time} = haveWatchedThisCourse(currentCourseLesson, lessonsList)
 
 			lesson && setActiveLessonAndAppendVideo(lesson, time)
-		},
+		}) as EventListener,
 		videoRef,
 	)
 
