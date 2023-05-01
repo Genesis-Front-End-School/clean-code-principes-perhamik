@@ -1,5 +1,3 @@
-import axios from 'axios'
-
 import Storage from '@/src/services/store'
 import {CourseSingleType, CourseType, LessonType} from '@/src/types'
 
