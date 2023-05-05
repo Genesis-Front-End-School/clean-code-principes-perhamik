@@ -8,7 +8,7 @@ type NavbarBrandProps = ComponentProps & {
 
 export const NavbarBrand = ({href, children}: NavbarBrandProps) => {
 	return (
-		<Link href={href} className="navbar-brand">
+		<Link href={href} className="link navbar-brand text-white">
 			{children}
 		</Link>
 	)

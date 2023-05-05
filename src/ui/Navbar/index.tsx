@@ -5,8 +5,8 @@ import {NavbarBrand} from './NavbarBrand'
 
 const Navbar = ({children}: ComponentProps) => {
 	return (
-		<nav className="navbar bg-dark" data-bs-theme="dark">
-			{children}
+		<nav className="navbar bg-dark text-white">
+			<div className="container-fluid">{children}</div>
 		</nav>
 	)
 }

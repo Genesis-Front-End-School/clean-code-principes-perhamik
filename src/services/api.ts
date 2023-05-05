@@ -1,9 +1,9 @@
 import Storage from '@/src/services/store'
 import {CourseSingleType, CourseType, LessonType} from '@/src/types'
 
-import {API_AUTH_PATH, API_GET_COURSES, API_PATH, PUB_API_PATH} from './const'
+import {API_AUTH_PATH, API_GET_COURSES, API_PATH} from './const'
 
-type AuthResponseData = {
+export type AuthResponseData = {
 	token: string
 }
 
@@ -24,40 +24,52 @@ export class API {
 	}
 
 	private authenticationRequest() {
-		return fetch(`${PUB_API_PATH}/${API_AUTH_PATH}`, {})
+		return fetch(`${API_PATH}/${API_AUTH_PATH}`, {next: {revalidate: 60}})
 	}
 
 	private getCoursesRequest(token: string, id: string = '') {
-		return fetch(`${API_PATH}/${API_GET_COURSES}/${id}`, {
+		return fetch(`${API_PATH}/${API_GET_COURSES}${id ? '/' + id : ''}`, {
 			headers: {Authorization: `Bearer ${token}`},
+			cache: 'force-cache',
 		})
 	}
 
-	private getToken() {
+	public getToken() {
 		return Storage.get('token') || ''
 	}
 
-	public async authenticateAsGuest() {
-		const authRequest = await this.authenticationRequest()
-		const tokenData = (await authRequest.json()) as AuthResponseData
+	public setToken(token: string) {
+		return Storage.set('token', token)
+	}
 
-		if (tokenData.token) {
-			Storage.set('token', tokenData.token)
+	public async authenticateGuestUser() {
+		const authRequest = await API.instance.authenticationRequest()
+		const tokenData = (await authRequest.json()) as AuthResponseData
+		return tokenData.token
+	}
+
+	public async getCoursesWithToken(token: string) {
+		try {
+			const courseRequest = await API.instance.getCoursesRequest(token)
+			const courseData = (await courseRequest.json()) as CoursesResponseData
+			return courseData
+		} catch (err) {
+			console.warn(err)
+			return {
+				courses: [],
+			} as CoursesResponseData
 		}
 	}
 
-	public async getCourses() {
-		const token = this.getToken()
-		const courseRequest = await this.getCoursesRequest(token)
-		const courseData = (await courseRequest.json()) as CoursesResponseData
-		return courseData
-	}
-
-	public async getSingleCourse(id: string) {
-		const token = this.getToken()
-		const courseRequest = await this.getCoursesRequest(token, id)
-		const courseData = (await courseRequest.json()) as CourseSingleType
-		return courseData
+	public async getSingleCourseWithToken(token: string, id: string) {
+		try {
+			const courseRequest = await API.instance.getCoursesRequest(token, id)
+			const courseData = (await courseRequest.json()) as CourseSingleType
+			return courseData
+		} catch (err) {
+			console.warn(err)
+			return {} as CourseSingleType
+		}
 	}
 }
 
@@ -65,6 +77,7 @@ export default API.getInstance()
 
 export const checkLessonsAccess = async (list: Array<LessonType>) => {
 	const result: Array<number> = []
+	if (!list) return result
 	for await (let lesson of list) {
 		try {
 			const res = await fetch(lesson.link)

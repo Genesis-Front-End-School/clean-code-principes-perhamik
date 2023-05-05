@@ -1,29 +1,10 @@
 import {destroyCookie, parseCookies, setCookie} from 'nookies'
 
-//import Cookies from 'universal-cookie'
-
 interface IStorageProvider {
 	get(name: string): string
 	set(name: string, value: string): void
 	remove(name: string): void
 }
-
-// class LocalStorageProvider implements IStorageProvider {
-// 	constructor() {}
-
-// 	public get(name: string) {
-// 		const value = localStorage.getItem(name)
-// 		return !value ? '' : value
-// 	}
-
-// 	public set(name: string, value: string) {
-// 		localStorage.setItem(name, value)
-// 	}
-
-// 	public remove(name: string) {
-// 		localStorage.removeItem(name)
-// 	}
-// }
 
 class NookiesStorageProvider implements IStorageProvider {
 	constructor() {}
@@ -43,6 +24,7 @@ class NookiesStorageProvider implements IStorageProvider {
 
 	public set(name: string, value: string): void {
 		setCookie(null, name, value, {
+			maxAge: 14 * 24 * 60 * 60,
 			path: '/',
 			secure: true,
 		})
@@ -52,31 +34,6 @@ class NookiesStorageProvider implements IStorageProvider {
 		destroyCookie(null, name)
 	}
 }
-
-// class CookiesStorageProvider implements IStorageProvider {
-// 	private cookies: Cookies
-
-// 	constructor() {
-// 		this.cookies = new Cookies()
-// 	}
-
-// 	public get(name: string): string {
-// 		const value = this.cookies.get(name)
-// 		return !value ? '' : value
-// 	}
-
-// 	public set(name: string, value: string): void {
-// 		this.cookies.set(name, value, {
-// 			path: '/',
-// 			secure: true,
-// 		})
-// 	}
-
-// 	public remove(name: string) {
-// 		this.cookies.remove(name)
-// 	}
-// }
-
 class Storage {
 	private static instance: Storage
 	private provider: IStorageProvider

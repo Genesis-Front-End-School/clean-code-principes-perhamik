@@ -9,7 +9,7 @@ type ColProps = ComponentProps & {
 }
 
 export const Row = ({children, className}: ComponentProps) => {
-	return <div className={mergeWithAdditionalClassName('wor', className)}>{children}</div>
+	return <div className={mergeWithAdditionalClassName('row', className)}>{children}</div>
 }
 
 export const Col = ({children, className, ...props}: ColProps) => {

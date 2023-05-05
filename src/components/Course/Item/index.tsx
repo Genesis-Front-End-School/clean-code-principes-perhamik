@@ -9,7 +9,7 @@ import {ItemStats} from './ItemStats'
 export const Item = ({data}: {data: CourseType}) => {
 	const {id, title, description, previewImageLink, tags, rating} = data
 	return (
-		<Link href={{pathname: `/course/${id}`}}>
+		<Link href={{pathname: `/course/${id}`}} className="link">
 			<Card className="h-100">
 				<ItemImage url={previewImageLink} />
 

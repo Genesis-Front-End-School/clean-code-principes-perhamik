@@ -1,4 +1,5 @@
 import {Metadata} from 'next'
+import {cookies} from 'next/headers'
 
 import {CourseList} from '@/src/components/Course'
 
@@ -10,19 +11,18 @@ export const metadata: Metadata = {
 }
 
 const fetchCourses = async () => {
-	const t = new Promise((res) =>
-		setTimeout(() => {
-			res(true)
-		}, 1500),
-	)
-
-	await t
-	//const data = await API.getCourses()
-	// return data.courses
-	return [1, 2, 3]
+	const tokenCookie = cookies().get('token')?.value || ''
+	const data = await API.getCoursesWithToken(tokenCookie)
+	return data?.courses
 }
 
 export default async function Home() {
 	const courses = await fetchCourses()
-	return <>{/* <CourseList courses={courses} /> */}</>
+	if (!courses) return null
+
+	return (
+		<>
+			<CourseList courses={courses} />
+		</>
+	)
 }

@@ -1,4 +1,4 @@
-export const delay = (ms: number) =>
+export const delay = (ms: number = 500): Promise<boolean> =>
 	new Promise((resolve) => {
 		setTimeout(() => {
 			resolve(true)

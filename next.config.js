@@ -4,7 +4,9 @@ const nextConfig = {
 		appDir: true,
 		typedRoutes: true,
 	},
-	
+	images: {
+		domains: ['wisey.app'],
+	},
 }
 
 module.exports = nextConfig
