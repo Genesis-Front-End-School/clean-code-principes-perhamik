@@ -4,10 +4,18 @@ import type {NextRequest} from 'next/server'
 
 import API from '@/src/services/api'
 
-export async function middleware(request: NextRequest) {
+const matchPathname = (path: string): boolean => {
+	return path.startsWith('/course/') || path === '/'
+}
+
+export async function middleware(request: NextRequest): Promise<NextResponse> {
+	if (!matchPathname(request.nextUrl.pathname)) return NextResponse.next()
+
+	const token = API.getToken() || request.cookies.get('token')?.value || ''
+
 	const tokenCookies: ResponseCookie = {
 		name: 'token',
-		value: API.getToken() ? API.getToken() : request.cookies.get('token')?.value || '',
+		value: token,
 		path: '/',
 		secure: true,
 		expires: new Date(Date.now() + 24 * 60 * 60 * 1000),

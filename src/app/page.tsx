@@ -5,12 +5,14 @@ import {CourseList} from '@/src/components/Course'
 
 import API from '@/src/services/api'
 
+import {CourseType} from '../types'
+
 export const metadata: Metadata = {
 	title: 'Courses',
 	description: 'List of online courses',
 }
 
-const fetchCourses = async () => {
+const fetchCourses = async (): Promise<Array<CourseType>> => {
 	const tokenCookie = cookies().get('token')?.value || ''
 	const data = await API.getCoursesWithToken(tokenCookie)
 	return data?.courses

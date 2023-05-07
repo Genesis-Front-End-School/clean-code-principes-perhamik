@@ -7,7 +7,7 @@ import {transformDuration} from '@/src/utils'
 import {CourseContext} from '../context'
 
 export const LessonsList = () => {
-	const {videoRef, activeLesson, lessonsList, setLessonsList, currentCourse, setCurrentCourse} = React.useContext(CourseContext)
+	const {videoRef, activeLesson, lessonsList, setLessonsList, currentCourse} = React.useContext(CourseContext)
 
 	const getVideoElement = () => {
 		return videoRef?.current

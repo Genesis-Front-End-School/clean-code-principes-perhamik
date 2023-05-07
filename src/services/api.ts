@@ -1,5 +1,5 @@
 import Storage from '@/src/services/store'
-import {CourseSingleType, CourseType, LessonType} from '@/src/types'
+import {CourseSingleType, CourseType, LessonType, UUID} from '@/src/types'
 
 import {API_AUTH_PATH, API_GET_COURSES, API_PATH} from './const'
 
@@ -27,28 +27,28 @@ export class API {
 		return fetch(`${API_PATH}/${API_AUTH_PATH}`, {next: {revalidate: 60}})
 	}
 
-	private getCoursesRequest(token: string, id: string = '') {
+	private getCoursesRequest(token: UUID, id: string = '') {
 		return fetch(`${API_PATH}/${API_GET_COURSES}${id ? '/' + id : ''}`, {
 			headers: {Authorization: `Bearer ${token}`},
 			cache: 'force-cache',
 		})
 	}
 
-	public getToken() {
-		return Storage.get('token') || ''
+	public getToken(): UUID | null {
+		return Storage.get('token') || null
 	}
 
-	public setToken(token: string) {
-		return Storage.set('token', token)
+	public setToken(token: UUID): void {
+		Storage.set('token', token)
 	}
 
-	public async authenticateGuestUser() {
+	public async authenticateGuestUser(): Promise<UUID> {
 		const authRequest = await API.instance.authenticationRequest()
 		const tokenData = (await authRequest.json()) as AuthResponseData
 		return tokenData.token
 	}
 
-	public async getCoursesWithToken(token: string) {
+	public async getCoursesWithToken(token: string): Promise<CoursesResponseData> {
 		try {
 			const courseRequest = await API.instance.getCoursesRequest(token)
 			const courseData = (await courseRequest.json()) as CoursesResponseData
@@ -61,7 +61,7 @@ export class API {
 		}
 	}
 
-	public async getSingleCourseWithToken(token: string, id: string) {
+	public async getSingleCourseWithToken(token: UUID, id: string): Promise<CourseSingleType> {
 		try {
 			const courseRequest = await API.instance.getCoursesRequest(token, id)
 			const courseData = (await courseRequest.json()) as CourseSingleType
@@ -75,7 +75,7 @@ export class API {
 
 export default API.getInstance()
 
-export const checkLessonsAccess = async (list: Array<LessonType>) => {
+export const checkLessonsAccess = async (list: Array<LessonType>): Promise<Array<number>> => {
 	const result: Array<number> = []
 	if (!list) return result
 	for await (let lesson of list) {

@@ -1,4 +1,4 @@
-export const transformDuration = (duration: number) => {
+export const transformDuration = (duration: number): string => {
 	const _h = Math.floor(duration / 3600)
 	const _m = Math.floor((duration - _h * 3600) / 60)
 	const _s = (duration % 60) + 1

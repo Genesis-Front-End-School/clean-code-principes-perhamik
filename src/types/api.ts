@@ -8,6 +8,8 @@ type CourseMeta = {
 	}
 }
 
+export type UUID = string
+
 export type CourseType = {
 	id: string
 	title: string
