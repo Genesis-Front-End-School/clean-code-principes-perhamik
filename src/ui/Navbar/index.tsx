@@ -1,11 +1,19 @@
 import React from 'react'
 
 import type {ComponentProps} from '../types'
+import {mergeWithAdditionalClassName} from '../utils'
 import {NavbarBrand} from './NavbarBrand'
 
-const Navbar = ({children}: ComponentProps) => {
+const baseClassName = 'navbar header__navbar'
+const additionalClassNames = ['bg-dark', 'text-white']
+
+const Navbar = ({children, className}: ComponentProps) => {
+	if (className) {
+		additionalClassNames.push(className)
+	}
+
 	return (
-		<nav className="navbar bg-dark text-white">
+		<nav className={mergeWithAdditionalClassName(baseClassName, additionalClassNames)}>
 			<div className="container-fluid">{children}</div>
 		</nav>
 	)

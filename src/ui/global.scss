@@ -1,1 +1,15 @@
 @use './helpers' as *;
+
+.header {
+	&__navbar.navbar {
+		& > .container-fluid {
+			justify-content: flex-start;
+		}
+	}
+
+	&__logo {
+		width: auto;
+		height: calc(1.375rem + 1.5vw + 4px);
+		margin: 0;
+	}
+}

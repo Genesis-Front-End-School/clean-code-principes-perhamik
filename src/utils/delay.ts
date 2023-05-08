@@ -5,6 +5,11 @@ export const delay = (ms: number = 500): Promise<boolean> =>
 		}, ms)
 	})
 
-export const delayedAction = (ms: number, func: Function): void => {
-	delay(ms).then(() => func())
+export const delayedAction = (ms: number, func: Function): Promise<boolean> => {
+	return new Promise((resolve) => {
+		delay(ms).then(() => {
+			func()
+			resolve(true)
+		})
+	})
 }

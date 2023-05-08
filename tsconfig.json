@@ -1,57 +1,16 @@
 {
+	"extends": "./tsconfig.web.json",
+
 	"compilerOptions": {
-		/* Basic */
 		"target": "es5",
 		"module": "esnext",
 		"lib": ["dom", "dom.iterable", "esnext"],
-		"allowJs": true,
-		"checkJs": true,
-		"jsx": "preserve",
-		"declaration": true,
-		"sourceMap": true,
-		"removeComments": true,
-		"noEmit": true,
-		"importHelpers": true,
-		"downlevelIteration": true,
-		"isolatedModules": true,
-
-		/* Strict */
-		"strict": true,
-		"noImplicitAny": true,
-		"strictNullChecks": true,
-		"noImplicitThis": true,
-		"alwaysStrict": true,
-
-		/* Additional Check */
-		"noUnusedLocals": true,
-		"noUnusedParameters": true,
-		"noImplicitReturns": true,
-		"noFallthroughCasesInSwitch": true,
-
-		/* Module Resolution */
 		"moduleResolution": "node",
+		"composite": true,
 		"baseUrl": "./",
 		"paths": {
 			"@/*": ["./*"]
 		},
-		"rootDirs": [],
-		"typeRoots": [],
-		"types": [],
-		"allowSyntheticDefaultImports": true,
-
-		/* Source Map Options */
-		/*"sourceRoot": "./",*/
-		/*"mapRoot": "./",*/
-		/*"inlineSourceMap": true,*/
-		/*"inlineSources": true,*/
-
-		/* Misc */
-
-		"skipLibCheck": true,
-		"forceConsistentCasingInFileNames": true,
-		"esModuleInterop": true,
-		"resolveJsonModule": true,
-		"incremental": true,
 
 		"plugins": [
 			{
