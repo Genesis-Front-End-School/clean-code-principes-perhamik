@@ -1,15 +1,7 @@
 import Storage from '@/src/services/store'
-import {CourseSingleType, CourseType, LessonType, UUID} from '@/src/types'
+import {AuthResponseData, CourseSingleType, CoursesResponseData, LessonType, UUID} from '@/src/types'
 
 import {API_AUTH_PATH, API_GET_COURSES, API_PATH} from './const'
-
-export type AuthResponseData = {
-	token: string
-}
-
-type CoursesResponseData = {
-	courses: Array<CourseType>
-}
 
 export class API {
 	private static instance: API
@@ -24,7 +16,7 @@ export class API {
 	}
 
 	private authenticationRequest() {
-		return fetch(`${API_PATH}/${API_AUTH_PATH}`, {next: {revalidate: 60}})
+		return fetch(`${API_PATH}/${API_AUTH_PATH}`, {next: {revalidate: 3600}})
 	}
 
 	private getCoursesRequest(token: UUID, id: string = '') {

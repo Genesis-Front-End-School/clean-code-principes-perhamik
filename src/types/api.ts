@@ -1,7 +1,9 @@
 type CourseMeta = {
 	slug: string
-	skills: Array<string>
-	courseVideoPreview: {
+	skills?: Array<string>
+	fullCourseProductId?: string
+	fullCourseProductFamily?: string
+	courseVideoPreview?: {
 		link: string
 		duration: number
 		previewImageLink: string
@@ -18,7 +20,7 @@ export type CourseType = {
 	status: string
 	description: string
 	duration: number
-	lessonsCount: number
+	lessonsCount?: number
 	containsLockedLessons: boolean
 	previewImageLink: string
 	rating: number
@@ -46,4 +48,12 @@ export type CourseSingleType = {
 export type SavedCourseInfoType = {
 	lesson: string
 	offsetTime: string
+}
+
+export type AuthResponseData = {
+	token: string
+}
+
+export type CoursesResponseData = {
+	courses: Array<CourseType>
 }

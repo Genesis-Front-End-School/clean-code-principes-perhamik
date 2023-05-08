@@ -1,1 +1,9 @@
-export type {CourseType, CourseSingleType, LessonType, SavedCourseInfoType, UUID} from './api'
+export type {
+	CourseType,
+	CourseSingleType,
+	LessonType,
+	SavedCourseInfoType,
+	UUID,
+	AuthResponseData,
+	CoursesResponseData,
+} from './api'

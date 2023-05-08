@@ -38,7 +38,7 @@ class NookiesStorageProvider implements IStorageProvider {
 		destroyCookie(null, name)
 	}
 }
-class Storage implements IStorage {
+export class Storage implements IStorage {
 	private static instance: Storage
 	private provider: IStorageProvider
 
