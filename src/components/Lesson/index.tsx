@@ -16,6 +16,7 @@ const LessonWithContext = ({children, course}: {children: React.ReactNode; cours
 	}, [course])
 	return <>{children}</>
 }
+
 export const Lesson = ({children, course}: {children: React.ReactNode; course: CourseSingleType}) => {
 	return (
 		<CourseContextProvider>
