@@ -21,4 +21,12 @@ describe('Single course page', () => {
 
 		expect(title).toBeDefined()
 	})
+
+	it('Single course has lessons list', () => {
+		const list = screen.getByRole('list')
+		const lessons = getAllByRole(list, 'heading', {level: 3})
+
+		expect(list).toBeDefined()
+		expect(lessons.length).toEqual(course.lessons.length)
+	})
 })
