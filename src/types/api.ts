@@ -1,3 +1,5 @@
+export type UUID = string
+
 type CourseMeta = {
 	slug: string
 	skills?: Array<string>
@@ -10,40 +12,39 @@ type CourseMeta = {
 	}
 }
 
-export type UUID = string
-
-export type CourseType = {
+type CoreFields = {
 	id: string
 	title: string
+	duration: number
+	previewImageLink: string
+}
+
+type CoursesOrSingleCommon = CoreFields & {
 	tags: Array<string>
 	launchDate: string
 	status: string
 	description: string
-	duration: number
-	lessonsCount?: number
 	containsLockedLessons: boolean
 	previewImageLink: string
 	rating: number
 	meta: CourseMeta
 }
+export type CourseType = CoursesOrSingleCommon & {
+	lessonsCount: number
+}
 
-export type LessonType = {
-	id: string
-	title: string
-	duration: number
+export type LessonType = CoreFields & {
 	order: number
 	type: 'video' | string
 	status: 'unlocked' | 'locked'
 	link: string
-	previewImageLink: string
 	meta: null
 	available?: boolean
 }
 
-export type CourseSingleType = {
+export type CourseSingleType = CoursesOrSingleCommon & {
 	lessons: Array<LessonType>
-	containsLockedLessons: boolean
-} & CourseType
+}
 
 export type SavedCourseInfoType = {
 	lesson: string

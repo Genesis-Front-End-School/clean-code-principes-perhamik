@@ -1,6 +1,6 @@
 {
 	"name": "genesis-case",
-	"version": "1.0",
+	"version": "5.1",
 	"author": "Denys Yaroshenko <denys.yaroshenko.mail@gmail.com> (https://github.com/perhamik/)",
 	"homepage": "https://github.com/perhamik/genesis-case#readme",
 	"license": "ISC",
@@ -25,6 +25,7 @@
 		"@types/react-dom": "^18.2.1",
 		"@vitejs/plugin-react": "latest",
 		"@vitest/coverage-c8": "^0.31.0",
+		"dependency-cruiser": "^12.12.1",
 		"eslint": "^8.39.0",
 		"eslint-config-next": "^13.3.2",
 		"jsdom": "latest",
@@ -42,6 +43,7 @@
 		"typecheck": "tsc",
 		"test": "vitest",
 		"coverage": "vitest run --coverage",
+		"architecture": "depcruise --include-only \"^src\" --output-type dot src | dot -T svg > dependencygraph.svg",
 		"docker:build": "docker build -t hw-1 .",
 		"docker:run": "docker run --name perhamik-case -dp 3000:3000 hw-1",
 		"docker:stop": "docker stop perhamik-case",

@@ -2,10 +2,10 @@ import Image from 'next/image'
 import React from 'react'
 
 import {getPreviewWebp} from '@/src/services/previews'
-import type {CourseType} from '@/src/types'
+import type {CourseSingleType} from '@/src/types'
 import {Col, Row} from '@/src/ui'
 
-export const LessonInfo = ({data}: {data: CourseType}) => {
+export const LessonInfo = ({data}: {data: CourseSingleType}) => {
 	return (
 		<Row className="flex-lg-row-reverse align-items-center g-5">
 			<Col col={10} col-sm={8} col-lg={6}>
