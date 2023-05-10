@@ -1,7 +1,6 @@
 import React from 'react'
 
-import {Header} from '@/src/components/Header'
-
+import {Header} from '@/src/features/Header'
 import '@/src/ui/global.scss'
 
 export default function RootLayout({children}: {children: React.ReactNode}) {
@@ -15,7 +14,10 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
 					crossOrigin="anonymous"
 				/>
 
-				<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.min.css"></link>
+				<link
+					rel="stylesheet"
+					href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.min.css"
+				></link>
 			</head>
 			<body>
 				<Header />

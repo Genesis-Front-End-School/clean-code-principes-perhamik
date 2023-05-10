@@ -1,13 +1,13 @@
 import {render, screen} from '@testing-library/react'
 import {beforeAll, describe, expect, it} from 'vitest'
 
-import {CourseList} from '@/src/components/Course'
+import {CourseList} from '@/src/features/Course'
 
-import {courses} from '../../services/apiData'
+import {coursesList} from '@/__tests__/apiResponses'
 
 describe('Home | Course List', () => {
 	beforeAll(() => {
-		render(<CourseList courses={courses.courses} />)
+		render(<CourseList courses={coursesList.courses} />)
 	})
 
 	// it('Home renders', () => {

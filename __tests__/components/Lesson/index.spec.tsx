@@ -3,11 +3,11 @@ import {beforeAll, describe, expect, it} from 'vitest'
 
 import {Single} from '@/src/app/course/[id]/Single'
 
-import {course} from '../../services/apiData'
+import {singleCourse} from '@/__tests__/apiResponses'
 
 describe('Single course page', () => {
 	beforeAll(() => {
-		render(<Single course={course} />)
+		render(<Single course={singleCourse} />)
 	})
 
 	it('Single course has preview', () => {
@@ -17,7 +17,7 @@ describe('Single course page', () => {
 	})
 
 	it('Single course has title', () => {
-		const title = screen.getByText(course.title)
+		const title = screen.getByText(singleCourse.title)
 
 		expect(title).toBeDefined()
 	})
@@ -27,6 +27,6 @@ describe('Single course page', () => {
 		const lessons = getAllByRole(list, 'heading', {level: 3})
 
 		expect(list).toBeDefined()
-		expect(lessons.length).toEqual(course.lessons.length)
+		expect(lessons.length).toEqual(singleCourse.lessons.length)
 	})
 })

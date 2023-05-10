@@ -31,12 +31,6 @@ yarn docker
 yarn install && yarn dev
 ```
 
-#### Using Bun:
-
-```bash
-bun install && bun run dev
-```
-
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ## Project structure
@@ -44,8 +38,16 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ```bash
 src/
 │
-├─── api/
-│     └── index.ts #contains api requests and related methods
+├─── app/ # as pages routing Next.js 13 feature
+│     │──── course/
+│     │       └──[id]/
+│     │            │── page.tsx # Course page content
+│     │            └── Single.tsx # Single course component
+│     │
+│     │── layout.tsx # Home page layout
+│     │── loading.tsx # Home page loading content (layout children)
+│     │── not-found.tsx # 404 page
+│     └── page.tsx # Home page content
 │
 ├─── components/
 │     │── CourseCard.tsx #includes RatingStars as sub-component, CourseCard is used on Home page
