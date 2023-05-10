@@ -4,9 +4,9 @@ import express from 'express'
 
 dotenv.config()
 
+const PORT = process.env.PORT || 4040
 const app = express()
 app.use(cors())
-const port = 4040
 
 app.get('/courses', async function (req, res) {
 	try {
@@ -37,6 +37,6 @@ app.get('/courses/:id', async function (req, res) {
 	}
 })
 
-app.listen(port, () => {
-	console.log(`Example app listening on port ${port}`)
+app.listen(PORT, () => {
+	console.log(`Example app listening on port ${PORT}`)
 })
