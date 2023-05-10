@@ -43,7 +43,7 @@
 		"typecheck": "tsc",
 		"test": "vitest",
 		"coverage": "vitest run --coverage",
-		"architecture": "depcruise --include-only \"^src\" --output-type dot src | dot -T svg > dependencygraph.svg",
+		"architecture": "depcruise --config --include-only \"^src\" --output-type dot src | dot -T svg > dependencygraph.svg",
 		"docker:build": "docker build -t hw-1 .",
 		"docker:run": "docker run --name perhamik-case -dp 3000:3000 hw-1",
 		"docker:stop": "docker stop perhamik-case",

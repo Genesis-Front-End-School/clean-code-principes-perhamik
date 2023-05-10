@@ -1,4 +1,4 @@
-import {Item} from '@/src/features/Course'
+import {Item} from '@/src/features/Course/Item'
 import {CourseType} from '@/src/shared/api'
 import {Row} from '@/src/shared/ui'
 

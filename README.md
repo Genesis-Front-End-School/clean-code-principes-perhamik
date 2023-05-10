@@ -137,6 +137,10 @@ src/
 
 ```
 
-### Dependecies graph
+### Architecture
+
+![dependencygraph-detailed.svg](dependencygraph-detailed.svg)
+
+#### Simplified
 
 ![dependencygraph.svg](dependencygraph.svg)
