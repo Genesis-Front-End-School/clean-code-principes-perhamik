@@ -1,7 +1,7 @@
 import React from 'react'
 
 import {Header} from '@/src/features/Header'
-import '@/src/ui/global.scss'
+import '@/src/shared/ui/global.scss'
 
 export default function RootLayout({children}: {children: React.ReactNode}) {
 	return (

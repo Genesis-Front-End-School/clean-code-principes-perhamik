@@ -7,7 +7,13 @@ type ListGroupItemProps = ComponentProps & {
 	disabled?: boolean
 }
 
-const staticClassNames = ['d-flex', 'justify-content-between', 'align-items-start', 'list-group-item', 'list-group-item-action']
+const staticClassNames = [
+	'd-flex',
+	'justify-content-between',
+	'align-items-start',
+	'list-group-item',
+	'list-group-item-action',
+]
 
 export const ListGroupItem = ({active, disabled, onClick, children}: ListGroupItemProps) => {
 	const stateClassName = !!disabled ? 'disabled' : !!active ? 'active' : ''
@@ -17,7 +23,11 @@ export const ListGroupItem = ({active, disabled, onClick, children}: ListGroupIt
 	}
 
 	return (
-		<button type="button" className={mergeWithAdditionalClassName(stateClassName, [...staticClassNames])} onClick={handleClick}>
+		<button
+			type="button"
+			className={mergeWithAdditionalClassName(stateClassName, [...staticClassNames])}
+			onClick={handleClick}
+		>
 			{children}
 		</button>
 	)
