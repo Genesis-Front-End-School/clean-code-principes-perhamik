@@ -1,12 +1,5 @@
-import * as dotenv from 'dotenv'
 import Document, {Head, Html, Main, NextScript} from 'next/document'
 import React from 'react'
-
-const dotenvRes = dotenv.config()
-
-if (dotenvRes.error) {
-	throw dotenvRes.error
-}
 
 class AppDocument extends Document {
 	render() {

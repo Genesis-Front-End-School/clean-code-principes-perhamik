@@ -1,35 +1,40 @@
-import type {GetServerSideProps} from 'next'
+import axios from 'axios'
 import Head from 'next/head'
 import React from 'react'
 
-import Layout, {CoursesListLayout} from '@/src/layout'
-import {getCoursesList} from '@/src/services'
-import type {CourseType} from '@/src/types'
+import {CourseList} from '@/src/components/Course'
+import Header from '@/src/components/Header'
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-	const req = await getCoursesList(ctx)
-	const data = req.courses
+import API from '@/src/services/api'
+import {CourseType} from '@/src/types'
 
-	if (!data) {
-		return {
-			notFound: true,
+export default function Home() {
+	const [isLoading, setIsLoading] = React.useState(true)
+	const [courses, setCourses] = React.useState<Array<CourseType>>([])
+
+	React.useEffect(() => {
+		const fetchCourses = async () => {
+			const data = await API.getCourses()
+			if (data.courses) {
+				setCourses(() => data.courses)
+			}
+
+			setIsLoading(false)
 		}
-	}
 
-	return {
-		props: {data},
-	}
-}
+		if (!isLoading) return
+		fetchCourses()
+	}, [])
 
-export default function Home({data}: {data: Array<CourseType>}) {
 	return (
-		<Layout>
+		<>
 			<Head>
 				<title>Courses</title>
 				<meta name="description" content="List of online courses" />
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-			<CoursesListLayout data={data} />
-		</Layout>
+			<Header />
+			<CourseList courses={courses} />
+		</>
 	)
 }
