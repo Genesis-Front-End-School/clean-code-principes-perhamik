@@ -20,7 +20,7 @@ cd perhamik-genesis-case
 #### Using docker:
 
 ```bash
-docker build -t hw-1 . && docker run --name perhamik-case -dp 3000:3000 hw-1
+docker build -t hw-1 . && docker run --name perhamik-case -dp 3000:3000 hw-3
 # OR through yarn
 yarn docker
 ```
@@ -31,87 +31,66 @@ yarn docker
 yarn install && yarn dev
 ```
 
-#### Using Bun:
-
-```bash
-bun install && bun run dev
-```
-
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ## Project structure
 
 ```bash
-src/
 │
-├─── api/
-│     └── index.ts #contains api requests and related methods
+├─public/
+├─server/
+│   │── ...
+│   └── server.ts #Express Server (Middleware between API and App) - solves CORS issue
 │
-├─── components/
-│     │── CourseCard.tsx #includes RatingStars as sub-component, CourseCard is used on Home page
-│     │── Header.tsx
-│     └── PaginationCourse.tsx #navigation between pages on Home page
-│
-├─── context/
-│     └── index.tsx #App Context Provider
-│
-├─── layout/
-│     │── course.tsx #Course page
-│     │── index.tsx  #core layout (with context)
-│     └── list.tsx #used on Home page, contains Course Cards
-│
-├─── pages/
-│     │── course/
-│     │     └── [...id].tsx #dynamic route to catch all path
-│     │
-│     │── _app.tsx #custom App
-│     │── _document.tsx #custom Document
-│     │── 404.tsx #custom Error Page
-│     └── index.tsx #Home page
-│
-├─── types/
-│     │── api.ts #core types provided by the API
-│     └── index.ts #used for import from single point
-│
-
-```
-
-## About Bun
-
-Project uses [Bun]() runtime. Bun ships as a single executable that can be installed a few different ways.
-
-Windows users — Bun does not currently provide a native Windows build. We're working on this; progress can be tracked at [this issue](https://github.com/oven-sh/bun/issues/43). In the meantime, use one of the installation methods below for Windows Subsystem for Linux.
-
-Linux users — Kernel version 5.6 or higher is strongly recommended, but the minimum is 5.1.
-
-### Native
-
-```sh
-curl -fsSL https://bun.sh/install | bash
-```
-
-### npm
-
-```sh
-npm install -g bun
-```
-
-### Homebrew
-
-```sh
-brew tap oven-sh/bun # for macOS and Linux
-brew install bun
-```
-
-### Docker
-
-```sh
-docker pull oven/bun
-docker run --rm --init --ulimit memlock=-1:-1 oven/bun
-```
-
-### proto
-
-```sh
-proto install bun
+└─src/
+    │
+    ├─── api/
+    │     └── index.ts #contains api requests and related methods
+    │
+    ├─── components/
+    │     │── Course/
+    │     │       │── index.tsx  # Course Component (Homepage)
+    │     │       │── List/ ── index.tsx
+    │     │       └── Item/
+    │     │             │─── index.tsx
+    │     │             │─── ItemImage.tsx
+    │     │             └─── ItemStats/
+    │     │                    │─── index.tsx
+    │     │                    └─── Rating.tsx
+    │     │
+    │     │── Header/ ── index.tsx
+    │     └── Lesson/
+    │           │── context.tsx #local context
+    │           │── index.tsx
+    │           │── utils.tsx #local helpers
+    │           │── Info/ ── index.tsx
+    │           │── List/ ── index.tsx
+    │           └── Video/ ── index.tsx
+    │
+    │
+    ├─── pages/
+    │     │── course/
+    │     │     └── [...id].tsx #dynamic route to catch all path
+    │     │
+    │     │── _app.tsx #custom App
+    │     │── _document.tsx #custom Document
+    │     │── 404.tsx #custom Error Page
+    │     └── index.tsx #Home page
+    │
+    ├─── services/
+    │     │── api.ts
+    │     │── const.ts #global definitions
+    │     │── index.ts
+    │     │── previews.ts #getters for images URL's
+    │     └── store.ts
+    │
+    │
+    ├─── types/
+    │     │── api.ts #core types provided by the API
+    │     └── index.ts
+    │
+    └─── utils/
+          │── delay.ts #time-based callbacks
+          │── timeTransform.ts #string formating
+          └── index.ts
 ```
