@@ -20,7 +20,7 @@ cd perhamik-genesis-case
 #### Using docker:
 
 ```bash
-docker build -t hw-1 . && docker run --name perhamik-case -dp 3000:3000 hw-1
+docker build -t hw-1 . && docker run --name perhamik-case -dp 3000:3000 hw-3
 # OR through yarn
 yarn docker
 ```
@@ -36,7 +36,6 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ## Project structure
 
 ```bash
-src/
 │
 ├─── app/ # as pages routing Next.js 13 feature
 │     │──── course/
