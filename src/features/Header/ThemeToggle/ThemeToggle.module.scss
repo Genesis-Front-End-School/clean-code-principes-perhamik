@@ -7,7 +7,6 @@
 
 		&:checked + .toggle__check {
 			background-color: #fff;
-			//box-shadow: 0 0 0 1200px #092c3e;
 
 			&::before {
 				transform: translateX(-3rem);

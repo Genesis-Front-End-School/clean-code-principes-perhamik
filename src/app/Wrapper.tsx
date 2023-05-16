@@ -2,14 +2,13 @@
 
 import React from 'react'
 
-import {ThemeContext, ThemeProvider} from '@/src/processes/theme'
+import {ThemeProvider, useTheme} from '@/src/processes/theme'
 
 const ThemeContainer = ({children}: {children: React.ReactNode}) => {
-	const {theme, themeType} = React.useContext(ThemeContext)
-	const bodyBg = theme['--theme-background-page']
+	const {theme, themeType} = useTheme()
 
 	return (
-		<body data-theme={themeType} style={{backgroundColor: bodyBg}}>
+		<body data-theme={themeType} style={{backgroundColor: theme['--theme-background-page']}}>
 			<div className="wrapper" style={{...theme} as React.CSSProperties}>
 				{children}
 			</div>

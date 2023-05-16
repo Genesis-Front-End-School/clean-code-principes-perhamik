@@ -19,6 +19,7 @@ export const LessonInfo = () => {
 					alt="Course Preview"
 					width={512}
 					height={512}
+					quality={90}
 					style={{minHeight: '164px', objectFit: 'cover', width: '100%', height: 'auto'}}
 				/>
 			</Col>

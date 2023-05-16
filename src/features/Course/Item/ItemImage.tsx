@@ -8,7 +8,7 @@ export const ItemImage = ({url}: {url: string}) => {
 			src={getPreviewWebp(url)}
 			width={512}
 			height={512}
-			style={{minHeight: '164px', objectFit: 'cover', width: 'auto', height: '100%'}}
+			style={{minHeight: '128px', maxHeight: '164px', objectFit: 'cover', width: 'auto', height: '100%'}}
 		/>
 	)
 }

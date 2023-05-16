@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import React from 'react'
 
-import {mergeWithAdditionalClassName} from '../utils'
+import {mergeWithAdditionalClassName, rgbDataURL} from '../utils'
 
 type CardImgProps = {
 	variant?: 'top' | 'bottom' | string
@@ -19,6 +19,9 @@ export const CardImg = ({variant, src, width, height, ...props}: CardImgProps) =
 			width={width}
 			height={height}
 			alt="Card image"
+			quality={75}
+			placeholder="blur"
+			blurDataURL={rgbDataURL(209, 203, 182)}
 			{...props}
 		/>
 	)
