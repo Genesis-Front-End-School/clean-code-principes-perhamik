@@ -1,8 +1,17 @@
-.card {
+div.card {
+	--bs-card-color: var(--theme-color, #333);
+	--bs-card-bg: var(--theme-background, #fff);
+
 	&__title {
-		color: #333;
+		color: var(--theme-color, #333);
 	}
+
 	&__text {
-		color: #555;
+		color: var(--theme-color, #333);
+		opacity: 0.85;
+	}
+
+	&__body {
+		grid-template-rows: 1.75rem min-content 1fr;
 	}
 }

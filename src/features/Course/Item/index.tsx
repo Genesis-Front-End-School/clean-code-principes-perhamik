@@ -13,7 +13,7 @@ export const Item = ({data}: {data: CourseType}) => {
 			<Card className="h-100">
 				<ItemImage url={previewImageLink} />
 
-				<Card.Body className="d-grid justify-items-start gap-2">
+				<Card.Body className="d-grid justify-items-start gap-2" style={{minHeight: '164px'}}>
 					<ItemStats tags={tags} rating={rating} />
 
 					<Card.Title>{title}</Card.Title>

@@ -1,9 +1,9 @@
 import Hls, {ErrorData, Events} from 'hls.js'
+import React from 'react'
 
-import type {LessonType, SavedCourseInfoType} from '@/src/shared/api'
-import {env} from '@/src/shared/config'
+import type {LessonType} from '@/src/shared/api'
 
-export const appendHlsErrorHandler = (hls: Hls, lesson: LessonType) => {
+const appendHlsErrorHandler = (hls: Hls, lesson: LessonType): void => {
 	if (!hls) return
 
 	const HlsErrorHandler = (event: Events.ERROR, data: ErrorData) => {
@@ -37,14 +37,16 @@ export const appendHlsErrorHandler = (hls: Hls, lesson: LessonType) => {
 	hls.on(Hls.Events.MEDIA_ATTACHED, () => hls.loadSource(lesson.link))
 }
 
-export const haveWatchedThisCourse = (currentCourseLesson: string, list: Array<LessonType>) => {
-	if (!currentCourseLesson) return {lesson: null, time: env.PLAYER_START_POSITION}
-
-	const parsedCourse = JSON.parse(currentCourseLesson) as SavedCourseInfoType
-	const time = !isNaN(parseInt(parsedCourse.offsetTime))
-		? parseInt(parsedCourse.offsetTime)
-		: env.PLAYER_START_POSITION
-	const lesson = list.find((item) => item.id === parsedCourse.lesson)
-
-	return {lesson, time}
+export const attachHlsVideo = (
+	lesson: LessonType,
+	time: number,
+	ref: React.MutableRefObject<HTMLVideoElement | null>,
+): Hls => {
+	const hls = new Hls({startPosition: time})
+	console.log(time, hls)
+	const video = ref?.current
+	if (!video) return hls
+	appendHlsErrorHandler(hls, lesson)
+	hls.attachMedia(video)
+	return hls
 }

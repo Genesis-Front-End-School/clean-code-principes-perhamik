@@ -5,6 +5,8 @@ import {Navbar} from '@/src/shared/ui'
 
 import logo from '@/public/logo.svg'
 
+import {ThemeToggle} from './ThemeToggle'
+
 const HOME_URL = {
 	pathname: '/',
 }
@@ -17,6 +19,7 @@ export const Header = () => {
 					<Image src={logo} width={103} height={28} className="header__logo" alt="Wisey logo" />
 				</Navbar.Brand>
 				<h1>courses</h1>
+				<ThemeToggle />
 			</Navbar>
 		</header>
 	)

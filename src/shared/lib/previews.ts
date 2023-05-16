@@ -3,11 +3,15 @@ import type {LessonType} from '@/src/shared/api'
 import {singleCourse} from '@/__tests__/apiResponses'
 
 export const getPreviewWebp = (path: string): string => `${path}/cover.webp`
+export const getPreviewPNG = (path: string): string => `${path}/cover.png`
 
 export const getPreviewSet = (path: string): string => `${getPreviewWebp(path)}, ${path}/cover.png`
 
 export const getLessonPreviewWebp = (lesson: LessonType): string =>
 	`${lesson.previewImageLink}/lesson-${lesson.order}.webp`
+
+export const getLessonPreviewPNG = (lesson: LessonType): string =>
+	`${lesson.previewImageLink}/lesson-${lesson.order}.png`
 
 export const getLessonPreviewSet = (lesson: LessonType): string =>
 	`${getLessonPreviewWebp(lesson)}, ${lesson.previewImageLink}/lesson-${lesson.order}.png`

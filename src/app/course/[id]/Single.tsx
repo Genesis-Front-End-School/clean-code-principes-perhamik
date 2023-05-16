@@ -10,17 +10,17 @@ export const Single = ({course}: {course: CourseSingleType}) => {
 	return (
 		<Lesson course={course}>
 			<section className="px-4 py-5">
-				<Container className="col-xxl-8">
-					<LessonInfo data={course} />
+				<Container>
+					<LessonInfo />
 				</Container>
 			</section>
 
 			<Container>
-				<Row>
-					<Col col-sm={8}>
+				<Row className="gap-4 flex-row-reverse flex-lg-row">
+					<Col col={12} col-lg={8}>
 						<LessonVideo />
 					</Col>
-					<Col col-sm={4}>
+					<Col col={12} col-lg="auto">
 						<LessonsList />
 					</Col>
 				</Row>
