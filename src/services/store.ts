@@ -1,47 +1,34 @@
 import {destroyCookie, parseCookies, setCookie} from 'nookies'
-import Cookies from 'universal-cookie'
 
-interface IStorageProvider {
+interface IStorage {
 	get(name: string): string
 	set(name: string, value: string): void
+}
+interface IStorageProvider extends IStorage {
 	remove(name: string): void
 }
 
-class LocalStorageProvider implements IStorageProvider {
-	constructor() {}
-
-	public get(name: string) {
-		const value = localStorage.getItem(name)
-		return !value ? '' : value
-	}
-
-	public set(name: string, value: string) {
-		localStorage.setItem(name, value)
-	}
-
-	public remove(name: string) {
-		localStorage.removeItem(name)
-	}
-}
+type ParsedCookies = {[key: string]: string}
 
 class NookiesStorageProvider implements IStorageProvider {
 	constructor() {}
 
-	private findProperty(cookies: {[key: string]: string}, name: string): string {
-		const search = Object.entries(cookies || {}).find(([key, value]) => key === name)
+	private findProperty(cookies: ParsedCookies, name: string): string {
+		const search = Object.entries(cookies || {}).find(([key, _]) => key === name)
 		if (!search) return ''
 
-		const [key, value] = search
+		const [_, value] = search
 		return value
 	}
 
 	public get(name: string): string {
-		const cookies = parseCookies()
+		const cookies: ParsedCookies = parseCookies()
 		return this.findProperty(cookies, name)
 	}
 
 	public set(name: string, value: string): void {
 		setCookie(null, name, value, {
+			maxAge: 14 * 24 * 60 * 60,
 			path: '/',
 			secure: true,
 		})
@@ -51,32 +38,7 @@ class NookiesStorageProvider implements IStorageProvider {
 		destroyCookie(null, name)
 	}
 }
-
-class CookiesStorageProvider implements IStorageProvider {
-	private cookies: Cookies
-
-	constructor() {
-		this.cookies = new Cookies()
-	}
-
-	public get(name: string): string {
-		const value = this.cookies.get(name)
-		return !value ? '' : value
-	}
-
-	public set(name: string, value: string): void {
-		this.cookies.set(name, value, {
-			path: '/',
-			secure: true,
-		})
-	}
-
-	public remove(name: string) {
-		this.cookies.remove(name)
-	}
-}
-
-class Storage {
+export class Storage implements IStorage {
 	private static instance: Storage
 	private provider: IStorageProvider
 
@@ -92,16 +54,16 @@ class Storage {
 		return Storage.instance
 	}
 
-	public get(name: string) {
+	public get(name: string): string {
 		return this.provider.get(name)
 	}
 
-	public set(name: string, value: string) {
-		return this.provider.set(name, value)
+	public set(name: string, value: string): void {
+		this.provider.set(name, value)
 	}
 
-	public remove(name: string) {
-		return this.provider.remove(name)
+	public remove(name: string): void {
+		this.provider.remove(name)
 	}
 }
 

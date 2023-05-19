@@ -11,8 +11,9 @@ const getListOfStarClasses = (rating: CourseType['rating']) =>
 		return Math.floor(rating) > id ? `${star}-fill` : star
 	})
 
-export default function RatingStars({rating}: {rating: CourseType['rating']}) {
-	const listOfStarClasses = React.useMemo(() => getListOfStarClasses(rating), [rating])
+export const Rating = ({rating}: {rating: CourseType['rating']}) => {
+	//const listOfStarClasses = React.useMemo(() => getListOfStarClasses(rating), [rating])
+	const listOfStarClasses = getListOfStarClasses(rating)
 
 	return (
 		<div className="d-flex gap-1 justify-content-end">

@@ -1,9 +1,26 @@
-import {CourseContextProvider} from './context'
+import React from 'react'
+
+import {CourseSingleType} from '@/src/types'
+
+import {CourseContext, CourseContextProvider} from './context'
 
 export {CourseContextProvider, CourseContext} from './context'
+export {LessonInfo} from './Info'
 export {LessonVideo} from './Video'
 export {LessonsList} from './List'
 
-export default function Lesson({children}: {children: React.ReactNode}) {
-	return <CourseContextProvider>{children}</CourseContextProvider>
+const LessonWithContext = ({children, course}: {children: React.ReactNode; course: CourseSingleType}) => {
+	const {setCurrentCourse} = React.useContext(CourseContext)
+	React.useEffect(() => {
+		setCurrentCourse && setCurrentCourse(() => course)
+	}, [course])
+	return <>{children}</>
+}
+
+export const Lesson = ({children, course}: {children: React.ReactNode; course: CourseSingleType}) => {
+	return (
+		<CourseContextProvider>
+			<LessonWithContext course={course}>{children}</LessonWithContext>
+		</CourseContextProvider>
+	)
 }

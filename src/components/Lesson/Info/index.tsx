@@ -1,18 +1,21 @@
+import Image from 'next/image'
 import React from 'react'
-import {Col, Image, Row} from 'react-bootstrap'
 
-import {getPreviewSet, getPreviewWebp} from '@/src/services/previews'
+import {getPreviewWebp} from '@/src/services/previews'
 import type {CourseType} from '@/src/types'
+import {Col, Row} from '@/src/ui'
 
-export default function LessonInfo({data}: {data: CourseType}) {
+export const LessonInfo = ({data}: {data: CourseType}) => {
 	return (
 		<Row className="flex-lg-row-reverse align-items-center g-5">
 			<Col col={10} col-sm={8} col-lg={6}>
 				<Image
-					srcSet={getPreviewSet(data.previewImageLink)}
 					src={getPreviewWebp(data.previewImageLink)}
 					className="d-block mx-lg-auto img-fluid"
 					alt="Course Preview"
+					width={512}
+					height={512}
+					style={{minHeight: '164px', objectFit: 'cover', width: 'auto', height: 'auto'}}
 				/>
 			</Col>
 			<Col col-lg={6}>

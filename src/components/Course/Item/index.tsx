@@ -1,14 +1,15 @@
-import {Button, Card, Col} from 'react-bootstrap'
+import Link from 'next/link'
 
 import type {CourseType} from '@/src/types'
+import {Card} from '@/src/ui'
 
-import ItemImage from './ItemImage'
-import ItemStats from './ItemStats'
+import {ItemImage} from './ItemImage'
+import {ItemStats} from './ItemStats'
 
-export function Item({data}: {data: CourseType}) {
+export const Item = ({data}: {data: CourseType}) => {
 	const {id, title, description, previewImageLink, tags, rating} = data
 	return (
-		<Col>
+		<Link href={{pathname: `/course/${id}`}} className="link">
 			<Card className="h-100">
 				<ItemImage url={previewImageLink} />
 
@@ -17,14 +18,8 @@ export function Item({data}: {data: CourseType}) {
 
 					<Card.Title>{title}</Card.Title>
 					<Card.Text>{description}</Card.Text>
-
-					<Button variant="outline-primary" href={`/course/${id}`} className="w-50 align-self-end mx-auto">
-						Watch
-					</Button>
 				</Card.Body>
 			</Card>
-		</Col>
+		</Link>
 	)
 }
-
-export default Item

@@ -1,13 +1,22 @@
+import Image from 'next/image'
 import React from 'react'
-import {Container, Navbar} from 'react-bootstrap'
 
-export default function Header() {
+import {Navbar} from '@/src/ui'
+
+import logo from '@/public/logo.svg'
+
+const HOME_URL = {
+	pathname: '/',
+}
+
+export const Header = () => {
 	return (
-		<header>
-			<Navbar bg="dark" variant="dark">
-				<Container>
-					<Navbar.Brand href="/">Courses</Navbar.Brand>
-				</Container>
+		<header aria-label="header">
+			<Navbar>
+				<Navbar.Brand href={HOME_URL}>
+					<Image src={logo} width={103} height={28} className="header__logo" alt="Wisey logo" />
+				</Navbar.Brand>
+				<h1>courses</h1>
 			</Navbar>
 		</header>
 	)
