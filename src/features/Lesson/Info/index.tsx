@@ -1,8 +1,8 @@
+import {Col, Row} from '@perhamik/react-components'
 import Image from 'next/image'
 import React from 'react'
 
 import {getPreviewWebp} from '@/src/shared/lib'
-import {Col, Row} from '@/src/shared/ui'
 
 import {CourseContext} from '../context'
 

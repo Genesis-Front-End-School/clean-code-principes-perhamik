@@ -19,7 +19,7 @@ type CoreFields = {
 	previewImageLink: string
 }
 
-type CoursesOrSingleCommon = CoreFields & {
+export type CoursesOrSingleCommon = CoreFields & {
 	tags: Array<string>
 	launchDate: string
 	status: string

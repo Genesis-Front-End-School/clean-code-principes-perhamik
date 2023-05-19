@@ -1,5 +1,6 @@
+import {Card} from '@perhamik/react-components'
+
 import {getPreviewWebp} from '@/src/shared/lib'
-import {Card} from '@/src/shared/ui'
 
 export const ItemImage = ({url}: {url: string}) => {
 	return (

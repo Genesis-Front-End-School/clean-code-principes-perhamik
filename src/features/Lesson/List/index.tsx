@@ -1,6 +1,5 @@
+import {ListGroup} from '@perhamik/react-components'
 import React from 'react'
-
-import {ListGroup} from '@/src/shared/ui'
 
 import {CourseContext} from '../context'
 import {LessonListItem} from './Item'

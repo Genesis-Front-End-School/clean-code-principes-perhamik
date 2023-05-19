@@ -1,7 +1,13 @@
 import type {AuthResponseData, CourseSingleType, CoursesResponseData, UUID} from './types'
 import {authenticationRequest, getCoursesRequest, transformResponseToJSON} from './utils'
 
-export class API {
+export interface IAPI {
+	authenticateGuestUser(): Promise<UUID>
+	getCoursesWithToken(token: UUID): Promise<CoursesResponseData>
+	getSingleCourseWithToken(token: UUID, id: string): Promise<CourseSingleType>
+}
+
+export class API implements IAPI {
 	private static instance: API
 	private constructor() {}
 
@@ -18,7 +24,7 @@ export class API {
 		return tokenData?.token || ''
 	}
 
-	public async getCoursesWithToken(token: string): Promise<CoursesResponseData> {
+	public async getCoursesWithToken(token: UUID): Promise<CoursesResponseData> {
 		const coursesList = await transformResponseToJSON<CoursesResponseData>(getCoursesRequest(token))
 		!coursesList?.courses && Object.assign(coursesList, {courses: []})
 		return coursesList

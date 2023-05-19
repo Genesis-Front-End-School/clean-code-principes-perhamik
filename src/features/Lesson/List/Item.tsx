@@ -1,8 +1,8 @@
+import {ListGroup} from '@perhamik/react-components'
 import React from 'react'
 
 import type {LessonType} from '@/src/shared/api'
 import {transformDuration} from '@/src/shared/lib'
-import {ListGroup} from '@/src/shared/ui'
 
 import {CourseContext} from '../context'
 
