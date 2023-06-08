@@ -37,60 +37,109 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ```bash
 │
-├─public/
-├─server/
-│   │── ...
-│   └── server.ts #Express Server (Middleware between API and App) - solves CORS issue
+├─── app/ # as pages routing Next.js 13 feature
+│     │──── course/
+│     │       └──[id]/
+│     │            │── page.tsx # Course page content
+│     │            └── Single.tsx # Single course component
+│     │
+│     │── layout.tsx # Home page layout
+│     │── loading.tsx # Home page loading content (layout children)
+│     │── not-found.tsx # 404 page
+│     └── page.tsx # Home page content
 │
-└─src/
-    │
-    ├─── api/
-    │     └── index.ts #contains api requests and related methods
-    │
-    ├─── components/
-    │     │── Course/
-    │     │       │── index.tsx  # Course Component (Homepage)
-    │     │       │── List/ ── index.tsx
-    │     │       └── Item/
-    │     │             │─── index.tsx
-    │     │             │─── ItemImage.tsx
-    │     │             └─── ItemStats/
-    │     │                    │─── index.tsx
-    │     │                    └─── Rating.tsx
-    │     │
-    │     │── Header/ ── index.tsx
-    │     └── Lesson/
-    │           │── context.tsx #local context
-    │           │── index.tsx
-    │           │── utils.tsx #local helpers
-    │           │── Info/ ── index.tsx
-    │           │── List/ ── index.tsx
-    │           └── Video/ ── index.tsx
-    │
-    │
-    ├─── pages/
-    │     │── course/
-    │     │     └── [...id].tsx #dynamic route to catch all path
-    │     │
-    │     │── _app.tsx #custom App
-    │     │── _document.tsx #custom Document
-    │     │── 404.tsx #custom Error Page
-    │     └── index.tsx #Home page
-    │
-    ├─── services/
-    │     │── api.ts
-    │     │── const.ts #global definitions
-    │     │── index.ts
-    │     │── previews.ts #getters for images URL's
-    │     └── store.ts
-    │
-    │
-    ├─── types/
-    │     │── api.ts #core types provided by the API
-    │     └── index.ts
-    │
-    └─── utils/
-          │── delay.ts #time-based callbacks
-          │── timeTransform.ts #string formating
-          └── index.ts
+├─── features/
+│     │── Course
+│     │       │── Item
+│     │       │    │─── ItemStats
+│     │       │    │      │─── index.tsx  # display tags, additional info and rating
+│     │       │    │      └─── Rating.tsx # rating component
+│     │       │    │
+│     │       │    │─── index.tsx
+│     │       │    └─── ItemImage.tsx # preview of course
+│     │       │
+│     │       │
+│     │       │── List/index.tsx # represents displaying list of courses
+│     │       │
+│     │       └── index.tsx
+│     │
+│     │── Header
+│     │     └── index.tsx
+│     │
+│     └─── Lesson
+│           │── Info/index.tsx
+│           │
+│           │── List/index.tsx # list of lessons in course
+│           │
+│           │── Video/index.tsx
+│           │
+│           │── context.tsx # local context for Lesson Component
+│           │── index.tsx # entry point
+│           └── utils.ts # local helpers
+│
+│
+├─── processes/
+│     │── course.tsx
+│     │── home.tsx
+│     └── middleware.tsx
+│
+├─── shared/
+│     │── api/
+│     │    │── external.ts # interaction with external API
+│     │    │── index.ts
+│     │    │── types.ts
+│     │    └── utils.ts # local helpers
+│     │
+│     │── config/
+│     │    │── consts.ts
+│     │    └── index.ts
+│     │
+│     │── lib/
+│     │    │── delay.ts
+│     │    │── fetch.ts
+│     │    │── index.ts
+│     │    │── previews.ts
+│     │    └── timeTransform.ts
+│     │
+│     │── themes/ # featured soon
+│     │
+│     └── ui/
+│          │── Card/  # Card component
+│          │    │── CardBody.tsx
+│          │    │── CardImg.tsx
+│          │    │── CardText.tsx
+│          │    │── CardTitle.tsx
+│          │    │── index.tsx
+│          │    └── styles.module.scss
+│          │
+│          │── helpers/ # style helpers
+│          │    │── reset.scss
+│          │    └── index.scss
+│          │
+│          │── ListGroup/
+│          │    │── index.tsx
+│          │    └── ListGroupItem.tsx
+│          │
+│          │── Navbar/
+│          │    │── index.tsx
+│          │    └── NavbarBrand.tsx
+│          │
+│          │── Badge.tsx
+│          │── Container.tsx
+│          │── global.scss
+│          │── index.ts
+│          │── Layout.tsx
+│          │── types.ts
+│          └── utils.ts
+│
+└──── middleware.ts
+
 ```
+
+### Architecture
+
+![dependencygraph-detailed.svg](dependencygraph-detailed.svg)
+
+#### Simplified
+
+![dependencygraph.svg](dependencygraph.svg)

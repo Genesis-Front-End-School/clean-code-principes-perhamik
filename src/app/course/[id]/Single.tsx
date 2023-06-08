@@ -2,10 +2,9 @@
 
 import React from 'react'
 
-import {Lesson, LessonInfo, LessonVideo, LessonsList} from '@/src/components/Lesson'
-
-import type {CourseSingleType} from '@/src/types'
-import {Col, Container, Row} from '@/src/ui'
+import {Lesson, LessonInfo, LessonVideo, LessonsList} from '@/src/features/Lesson'
+import type {CourseSingleType} from '@/src/shared/api'
+import {Col, Container, Row} from '@/src/shared/ui'
 
 export const Single = ({course}: {course: CourseSingleType}) => {
 	return (

@@ -1,9 +1,8 @@
 'use client'
 
 import {Metadata} from 'next'
-import React from 'react'
 
-import {Col, Container, Row} from '@/src/ui'
+import {Col, Container, Row} from '@/src/shared/ui'
 
 export const metadata: Metadata = {
 	title: '404 - Not Found',

@@ -1,7 +1,7 @@
 import {render, screen} from '@testing-library/react'
 import {beforeAll, describe, expect, it} from 'vitest'
 
-import {Header} from '@/src/components/Header'
+import {Header} from '@/src/features/Header'
 
 describe('Header', () => {
 	beforeAll(() => {

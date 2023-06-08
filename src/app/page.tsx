@@ -1,30 +1,16 @@
 import {Metadata} from 'next'
-import {cookies} from 'next/headers'
 
-import {CourseList} from '@/src/components/Course'
-
-import API from '@/src/services/api'
-
-import {CourseType} from '../types'
+import {CourseList} from '@/src/features/Course'
+import {retrieveCoursesList} from '@/src/processes/home'
 
 export const metadata: Metadata = {
 	title: 'Courses',
 	description: 'List of online courses',
 }
 
-const fetchCourses = async (): Promise<Array<CourseType>> => {
-	const tokenCookie = cookies().get('token')?.value || ''
-	const data = await API.getCoursesWithToken(tokenCookie)
-	return data?.courses
-}
-
 export default async function Home() {
-	const courses = await fetchCourses()
+	const courses = await retrieveCoursesList()
 	if (!courses) return null
 
-	return (
-		<>
-			<CourseList courses={courses} />
-		</>
-	)
+	return <CourseList courses={courses} />
 }
