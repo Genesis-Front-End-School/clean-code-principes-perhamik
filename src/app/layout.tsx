@@ -3,6 +3,8 @@ import React from 'react'
 import {Header} from '@/src/features/Header'
 import '@/src/shared/ui/global.scss'
 
+import {Wrapper} from './Wrapper'
+
 export default function RootLayout({children}: {children: React.ReactNode}) {
 	return (
 		<html lang="en">
@@ -19,10 +21,10 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
 					href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.min.css"
 				></link>
 			</head>
-			<body>
+			<Wrapper>
 				<Header />
 				<main>{children}</main>
-			</body>
+			</Wrapper>
 		</html>
 	)
 }

@@ -5,7 +5,7 @@ import {mergeWithAdditionalClassName} from '../utils'
 import {NavbarBrand} from './NavbarBrand'
 
 const baseClassName = 'navbar header__navbar'
-const additionalClassNames = ['bg-dark', 'text-white']
+const additionalClassNames: Array<string> = []
 
 const Navbar = ({children, className}: ComponentProps) => {
 	if (className) {

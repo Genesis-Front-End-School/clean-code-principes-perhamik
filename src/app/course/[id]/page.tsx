@@ -14,7 +14,8 @@ export default async function CoursePage({params}: {params: {id: string}}) {
 		return null
 	}
 
-	Object.assign(metadata, {title: currentCourse.title, description: currentCourse.description})
+	currentCourse.title &&
+		Object.assign(metadata, {title: currentCourse.title, description: currentCourse.description})
 
 	return <Single course={currentCourse} />
 }

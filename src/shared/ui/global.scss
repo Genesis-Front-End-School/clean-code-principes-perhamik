@@ -1,7 +1,25 @@
 @use './helpers' as *;
 
+body {
+	&[data-theme='dark'] {
+	}
+}
+
+.wrapper {
+	color: var(--theme-color);
+	background-color: var(--theme-background-page);
+
+	&,
+	& * {
+		transition: background-color 250ms linear, color 250ms linear;
+	}
+}
+
 .header {
 	&__navbar.navbar {
+		color: var(--theme-color-header);
+		background-color: var(--theme-background-header);
+
 		& > .container-fluid {
 			justify-content: flex-start;
 		}
