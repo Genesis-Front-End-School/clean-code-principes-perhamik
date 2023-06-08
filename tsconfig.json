@@ -1,0 +1,24 @@
+{
+	"extends": "./tsconfig.web.json",
+
+	"compilerOptions": {
+		"target": "es5",
+		"module": "esnext",
+		"lib": ["dom", "dom.iterable", "esnext"],
+		"moduleResolution": "node",
+		"composite": true,
+		"baseUrl": "./",
+		"paths": {
+			"@/*": ["./*"]
+		},
+
+		"plugins": [
+			{
+				"name": "next"
+			}
+		],
+		"types": ["vitest/importMeta", "vitest/globals"]
+	},
+	"include": ["next-env.d.ts", "global.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+	"exclude": ["node_modules"]
+}
