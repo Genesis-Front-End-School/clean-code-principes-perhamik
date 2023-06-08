@@ -46,7 +46,8 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 │     │── layout.tsx # Home page layout
 │     │── loading.tsx # Home page loading content (layout children)
 │     │── not-found.tsx # 404 page
-│     └── page.tsx # Home page content
+│     │── page.tsx # Home page content
+│     └── Wrapper.tsx # Root container
 │
 ├─── features/
 │     │── Course
@@ -64,14 +65,24 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 │     │       └── index.tsx
 │     │
 │     │── Header
+│     │     │── ThemeToggle
+│     │     │       │── index.tsx
+│     │     │       └── ThemeToggle.module.scss
+│     │     │
 │     │     └── index.tsx
 │     │
 │     └─── Lesson
 │           │── Info/index.tsx
 │           │
-│           │── List/index.tsx # list of lessons in course
+│           │── List # list of lessons in course
+│           │     │── index.tsx
+│           │     │── Item.tsx
+│           │     └── utils.ts
 │           │
-│           │── Video/index.tsx
+│           │
+│           │── Video
+│           │     │── index.tsx
+│           │     └── utils.ts
 │           │
 │           │── context.tsx # local context for Lesson Component
 │           │── index.tsx # entry point
@@ -79,6 +90,10 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 │
 │
 ├─── processes/
+│     │── theme
+│     │     │── config.ts
+│     │     └── index.tsx
+│     │
 │     │── course.tsx
 │     │── home.tsx
 │     └── middleware.tsx
@@ -94,43 +109,18 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 │     │    │── consts.ts
 │     │    └── index.ts
 │     │
-│     │── lib/
+│     │──  lib/
 │     │    │── delay.ts
 │     │    │── fetch.ts
 │     │    │── index.ts
 │     │    │── previews.ts
+│     │    │── store.ts
 │     │    └── timeTransform.ts
 │     │
-│     │── themes/ # featured soon
 │     │
-│     └── ui/
-│          │── Card/  # Card component
-│          │    │── CardBody.tsx
-│          │    │── CardImg.tsx
-│          │    │── CardText.tsx
-│          │    │── CardTitle.tsx
-│          │    │── index.tsx
-│          │    └── styles.module.scss
-│          │
-│          │── helpers/ # style helpers
-│          │    │── reset.scss
-│          │    └── index.scss
-│          │
-│          │── ListGroup/
-│          │    │── index.tsx
-│          │    └── ListGroupItem.tsx
-│          │
-│          │── Navbar/
-│          │    │── index.tsx
-│          │    └── NavbarBrand.tsx
-│          │
-│          │── Badge.tsx
-│          │── Container.tsx
-│          │── global.scss
-│          │── index.ts
-│          │── Layout.tsx
-│          │── types.ts
-│          └── utils.ts
+│     └──  store/
+│          │── courses.ts
+│          └── index.ts
 │
 └──── middleware.ts
 

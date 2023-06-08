@@ -1,7 +1,5 @@
 'use client'
 
-import React from 'react'
-
 import {useTheme} from '@/src/processes/theme'
 
 import styles from './ThemeToggle.module.scss'

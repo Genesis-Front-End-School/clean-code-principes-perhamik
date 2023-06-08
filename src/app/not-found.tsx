@@ -1,8 +1,7 @@
 'use client'
 
+import {Col, Container, Row} from '@perhamik/react-components'
 import {Metadata} from 'next'
-
-import {Col, Container, Row} from '@/src/shared/ui'
 
 export const metadata: Metadata = {
 	title: '404 - Not Found',

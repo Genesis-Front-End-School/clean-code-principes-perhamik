@@ -1,5 +1,5 @@
 import Hls, {ErrorData, Events} from 'hls.js'
-import React from 'react'
+import type {MutableRefObject} from 'react'
 
 import type {LessonType} from '@/src/shared/api'
 
@@ -40,7 +40,7 @@ const appendHlsErrorHandler = (hls: Hls, lesson: LessonType): void => {
 export const attachHlsVideo = (
 	lesson: LessonType,
 	time: number,
-	ref: React.MutableRefObject<HTMLVideoElement | null>,
+	ref: MutableRefObject<HTMLVideoElement | null>,
 ): Hls => {
 	const hls = new Hls({startPosition: time})
 	console.log(time, hls)

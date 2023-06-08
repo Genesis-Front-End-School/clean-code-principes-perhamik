@@ -1,4 +1,5 @@
-import React from 'react'
+import {useContext, useEffect} from 'react'
+import type {ReactNode} from 'react'
 
 import type {CourseSingleType} from '@/src/shared/api'
 
@@ -9,9 +10,9 @@ export {LessonInfo} from './Info'
 export {LessonVideo} from './Video'
 export {LessonsList} from './List'
 
-const LessonWithContext = ({children, course}: {children: React.ReactNode; course: CourseSingleType}) => {
-	const {setCurrentCourse} = React.useContext(CourseContext)
-	React.useEffect(() => {
+const LessonWithContext = ({children, course}: {children: ReactNode; course: CourseSingleType}) => {
+	const {setCurrentCourse} = useContext(CourseContext)
+	useEffect(() => {
 		setCurrentCourse && setCurrentCourse(() => course)
 	}, [course])
 	return <>{children}</>

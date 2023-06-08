@@ -1,11 +1,11 @@
-import React from 'react'
+import {useLayoutEffect, useMemo, useState} from 'react'
 
 export function useLocalStorage<T extends string>(options: {
 	key: string | undefined
 	value: T
 }): [T, (value: T) => void] {
-	const [value, setValue] = React.useState<T>(options.value)
-	const key = React.useMemo(() => (options.key ? options.key : 'key'), [options])
+	const [value, setValue] = useState<T>(options.value)
+	const key = useMemo(() => (options.key ? options.key : 'key'), [options])
 
 	const ifLocalStorage = (): boolean => typeof window !== 'undefined' && !!window.localStorage
 
@@ -21,7 +21,7 @@ export function useLocalStorage<T extends string>(options: {
 		return window.localStorage.setItem(key, value)
 	}
 
-	React.useLayoutEffect(() => {
+	useLayoutEffect(() => {
 		const saved = getFromStorage()
 		if (saved) setValue(saved)
 	}, [options])

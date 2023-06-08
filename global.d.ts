@@ -7,3 +7,8 @@ declare global {
 
 	type IntRange<F extends number, T extends number> = Exclude<Enumerate<T>, Enumerate<F>>
 }
+
+declare module '*.scss' {
+	const content: Record<string, string>
+	export default content
+}

@@ -1,5 +1,5 @@
 import {ListGroup} from '@perhamik/react-components'
-import React from 'react'
+import {useContext} from 'react'
 
 import type {LessonType} from '@/src/shared/api'
 import {transformDuration} from '@/src/shared/lib'
@@ -7,7 +7,7 @@ import {transformDuration} from '@/src/shared/lib'
 import {CourseContext} from '../context'
 
 export const LessonListItem = ({lesson}: {lesson: LessonType}) => {
-	const {activeLesson, setActiveLesson} = React.useContext(CourseContext)
+	const {activeLesson, setActiveLesson} = useContext(CourseContext)
 
 	return (
 		<ListGroup.Item

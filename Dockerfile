@@ -1,13 +1,13 @@
-FROM node:18-alpine3.17
+FROM node:20-alpine3.17
 RUN apk update && apk upgrade
 WORKDIR /usr/app
 
 COPY . ./
-RUN yarn install
+RUN npm install
+RUN npm run build
 
 EXPOSE 3000
-RUN yarn build
-CMD ["yarn", "start"]
+CMD ["npm", "run", "start"]
 
 
-#ENTRYPOINT ["tail", "-f", "/dev/null"]
+ENTRYPOINT ["tail", "-f", "/dev/null"]

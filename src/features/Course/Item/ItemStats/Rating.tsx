@@ -1,5 +1,4 @@
 import {StarGroup} from '@perhamik/react-components'
-import React from 'react'
 
 import type {CourseType} from '@/src/shared/api'
 

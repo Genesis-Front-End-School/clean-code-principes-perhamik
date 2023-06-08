@@ -1,13 +1,13 @@
 import {Col, Row} from '@perhamik/react-components'
 import Image from 'next/image'
-import React from 'react'
+import {useContext} from 'react'
 
 import {getPreviewWebp} from '@/src/shared/lib'
 
 import {CourseContext} from '../context'
 
 export const LessonInfo = () => {
-	const {currentCourse} = React.useContext(CourseContext)
+	const {currentCourse} = useContext(CourseContext)
 	if (!currentCourse) return null
 
 	return (
