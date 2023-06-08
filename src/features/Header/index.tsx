@@ -1,7 +1,6 @@
+import {Navbar} from '@perhamik/react-components'
 import Image from 'next/image'
 import React from 'react'
-
-import {Navbar} from '@/src/shared/ui'
 
 import logo from '@/public/logo.svg'
 

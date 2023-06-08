@@ -1,7 +1,7 @@
+import {Card} from '@perhamik/react-components'
 import Link from 'next/link'
 
 import type {CourseType} from '@/src/shared/api'
-import {Card} from '@/src/shared/ui'
 
 import {ItemImage} from './ItemImage'
 import {ItemStats} from './ItemStats'

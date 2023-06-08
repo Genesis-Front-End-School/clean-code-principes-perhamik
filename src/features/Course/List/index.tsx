@@ -1,6 +1,7 @@
+import {Row} from '@perhamik/react-components'
+
 import {Item} from '@/src/features/Course/Item'
 import {CourseType} from '@/src/shared/api'
-import {Row} from '@/src/shared/ui'
 
 export const List = ({courses}: {courses: Array<CourseType>}) => {
 	if (!courses) return null
