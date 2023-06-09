@@ -1,26 +1,27 @@
-import React from 'react'
+import {createContext, useMemo, useRef, useState} from 'react'
+import type {Dispatch, MutableRefObject, ReactNode, SetStateAction} from 'react'
 
 import type {CourseSingleType, LessonType} from '@/src/shared/api'
 
 type ContextType = {
-	videoRef: React.MutableRefObject<HTMLVideoElement | null>
+	videoRef: MutableRefObject<HTMLVideoElement | null>
 	activeLesson: LessonType | null
-	setActiveLesson: React.Dispatch<React.SetStateAction<LessonType | null>>
+	setActiveLesson: Dispatch<SetStateAction<LessonType | null>>
 	lessonsList: Array<LessonType> | null
-	setLessonsList: React.Dispatch<React.SetStateAction<Array<LessonType> | null>>
+	setLessonsList: Dispatch<SetStateAction<Array<LessonType> | null>>
 	currentCourse: CourseSingleType | null
-	setCurrentCourse: React.Dispatch<React.SetStateAction<CourseSingleType | null>>
+	setCurrentCourse: Dispatch<SetStateAction<CourseSingleType | null>>
 	setActiveLessonById: Function
 }
 
-export const CourseContext = React.createContext<ContextType>({} as ContextType)
+export const CourseContext = createContext<ContextType>({} as ContextType)
 
-export const CourseContextProvider = ({children}: {children: React.ReactNode}) => {
-	const videoRef = React.useRef<HTMLVideoElement | null>(null)
+export const CourseContextProvider = ({children}: {children: ReactNode}) => {
+	const videoRef = useRef<HTMLVideoElement | null>(null)
 
-	const [lessonsList, setLessonsList] = React.useState<Array<LessonType> | null>(null)
-	const [activeLesson, setActiveLesson] = React.useState<LessonType | null>(null)
-	const [currentCourse, setCurrentCourse] = React.useState<CourseSingleType | null>(null)
+	const [lessonsList, setLessonsList] = useState<Array<LessonType> | null>(null)
+	const [activeLesson, setActiveLesson] = useState<LessonType | null>(null)
+	const [currentCourse, setCurrentCourse] = useState<CourseSingleType | null>(null)
 
 	const setActiveLessonById = (id: string) => {
 		if (!lessonsList || !id) return
@@ -28,7 +29,7 @@ export const CourseContextProvider = ({children}: {children: React.ReactNode}) =
 		search && setActiveLesson(search)
 	}
 
-	const contextData = React.useMemo(
+	const contextData = useMemo(
 		() => ({
 			videoRef,
 			lessonsList,

@@ -1,4 +1,4 @@
-import React from 'react'
+import {useContext, useLayoutEffect} from 'react'
 import {useInterval} from 'usehooks-ts'
 
 import {CourseContext} from '@/src/features/Lesson/context'
@@ -14,8 +14,7 @@ type SaveFormat = {
 }
 
 export const LessonVideo = () => {
-	const {videoRef, activeLesson, lessonsList, currentCourse, setActiveLessonById} =
-		React.useContext(CourseContext)
+	const {videoRef, activeLesson, lessonsList, currentCourse, setActiveLessonById} = useContext(CourseContext)
 
 	const [currentCourseLesson, setCurrentCourseLesson] = useLocalStorage<string>({
 		key: currentCourse?.id,
@@ -34,13 +33,13 @@ export const LessonVideo = () => {
 		updateVideoWithActiveLesson(data.time)
 	}
 
-	React.useLayoutEffect(() => {
+	useLayoutEffect(() => {
 		if (!activeLesson) return
 		const {time} = currentCourseLesson ? JSON.parse(currentCourseLesson) : env.PLAYER_START_POSITION
 		updateVideoWithActiveLesson(time)
 	}, [activeLesson])
 
-	React.useLayoutEffect(() => {
+	useLayoutEffect(() => {
 		if (!currentCourseLesson) return
 		const data: SaveFormat = JSON.parse(currentCourseLesson)
 

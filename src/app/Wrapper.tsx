@@ -1,7 +1,5 @@
 'use client'
 
-import React from 'react'
-
 import {ThemeProvider, useTheme} from '@/src/processes/theme'
 
 const ThemeContainer = ({children}: {children: React.ReactNode}) => {

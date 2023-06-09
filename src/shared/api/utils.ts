@@ -11,7 +11,7 @@ const getApiAuthPath = (): string => `${env.API_PATH}/${env.API_AUTH_PATH}`
 
 const setApiRequestOptions = (token: UUID): RequestInit => {
 	return {
-		headers: new Headers({Authorization: `Bearer ${token}`}),
+		headers: new Headers({Authorization: `Bearer ${token}`, 'Cache-Control': 'Public, max-age=18000'}),
 		cache: 'force-cache',
 	}
 }
@@ -21,7 +21,7 @@ const getCoursesRequest = (token: UUID, id: string = ''): Promise<Response> => {
 }
 
 const authenticationRequest = (): Promise<Response> => {
-	return fetcher(getApiAuthPath(), {next: {revalidate: 3600}})
+	return fetcher(getApiAuthPath())
 }
 
 async function transformResponseToJSON<T>(request: Promise<Response>) {

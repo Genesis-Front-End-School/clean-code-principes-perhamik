@@ -12,6 +12,11 @@ export const config = {
 }
 
 export async function middleware(request: NextRequest): Promise<NextResponse> {
+	const local = process.env.TOKEN
+	if (local) {
+		return generateNextResponseWithCookies(setTokenIntoResponseCookies(local))
+	}
+
 	const oldToken = getTokenFromNextRequest(request)
 	const token = await validateOldTokenOrGetNew(oldToken)
 	const tokenCookies = setTokenIntoResponseCookies(token)

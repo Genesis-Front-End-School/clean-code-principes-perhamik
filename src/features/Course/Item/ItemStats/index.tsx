@@ -1,5 +1,6 @@
+import {Badge, Col, Row} from '@perhamik/react-components'
+
 import type {CourseType} from '@/src/shared/api'
-import {Badge, Col, Row} from '@/src/shared/ui'
 
 import {Rating} from './Rating'
 

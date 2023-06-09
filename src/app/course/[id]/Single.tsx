@@ -1,10 +1,9 @@
 'use client'
 
-import React from 'react'
+import {Col, Container, Row} from '@perhamik/react-components'
 
 import {Lesson, LessonInfo, LessonVideo, LessonsList} from '@/src/features/Lesson'
 import type {CourseSingleType} from '@/src/shared/api'
-import {Col, Container, Row} from '@/src/shared/ui'
 
 export const Single = ({course}: {course: CourseSingleType}) => {
 	return (

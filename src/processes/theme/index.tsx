@@ -1,6 +1,7 @@
 'use client'
 
-import React from 'react'
+import {createContext, useContext, useEffect, useLayoutEffect, useRef, useState} from 'react'
+import type {Dispatch, MutableRefObject, ReactNode, SetStateAction} from 'react'
 
 import {useLocalStorage} from '@/src/shared/lib'
 
@@ -10,21 +11,21 @@ import {THEMES} from './config'
 interface ThemeContextProps {
 	themeType: ThemeType
 	theme: Theme
-	setCurrentTheme: React.Dispatch<React.SetStateAction<ThemeType>> | null
+	setCurrentTheme: Dispatch<SetStateAction<ThemeType>> | null
 	toggleTheme: Function
-	togglerRef?: React.MutableRefObject<HTMLInputElement | null>
+	togglerRef?: MutableRefObject<HTMLInputElement | null>
 }
 
-export const ThemeContext = React.createContext<ThemeContextProps>({
+export const ThemeContext = createContext<ThemeContextProps>({
 	themeType: 'light',
 	theme: THEMES['light'],
 	setCurrentTheme: null,
 	toggleTheme: () => {},
 })
 
-export const ThemeProvider = ({children}: {children: React.ReactNode}) => {
-	const togglerRef = React.useRef<HTMLInputElement>(null)
-	const [currentTheme, setCurrentTheme] = React.useState<ThemeType>('light')
+export const ThemeProvider = ({children}: {children: ReactNode}) => {
+	const togglerRef = useRef<HTMLInputElement>(null)
+	const [currentTheme, setCurrentTheme] = useState<ThemeType>('light')
 	const [savedTheme, setSavedTheme] = useLocalStorage<ThemeType>({key: 'theme', value: currentTheme})
 
 	const toggleTheme = () => {
@@ -39,13 +40,13 @@ export const ThemeProvider = ({children}: {children: React.ReactNode}) => {
 		togglerRef.current.checked = savedTheme === 'dark'
 	}
 
-	React.useLayoutEffect(() => {
+	useLayoutEffect(() => {
 		if (currentTheme !== savedTheme) {
 			setCurrentTheme(savedTheme)
 		}
 	}, [savedTheme])
 
-	React.useEffect(() => {
+	useEffect(() => {
 		if (currentTheme !== savedTheme) {
 			setSavedTheme(currentTheme)
 		}
@@ -66,4 +67,4 @@ export const ThemeProvider = ({children}: {children: React.ReactNode}) => {
 	)
 }
 
-export const useTheme = () => React.useContext(ThemeContext)
+export const useTheme = () => useContext(ThemeContext)
